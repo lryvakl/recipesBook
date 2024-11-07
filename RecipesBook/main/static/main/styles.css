@@ -1,0 +1,100 @@
+   body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 20px; background-color: #ffb6c1; position: relative; }
+        header h1 { font-size: 24px; margin : 0; color: white; position: relative; text-align: center; flex-grow: 1;
+}
+        header .back-btn { text-decoration: none; margin-right:10px; color: white; font-weight: bold; }
+        header .back-btn:hover { text-decoration: underline; }
+   .register-btn {
+            background-color: darkgray; /* Зелений колір для кнопки */
+            color: white; /* Текст білим */
+
+            padding: 5px 10px; /* Відступи для кнопки */
+            font-size: 14px; /* Розмір шрифту */
+            font-weight: bold;
+            border: none; /* Без меж */
+            border-radius: 8px; /* Заокруглені кути */
+            cursor: pointer; /* Курсор як рука */
+            transition: background-color 0.3s ease; /* Плавна зміна кольору */
+}
+   .register-btn:hover {
+            background-color: dimgray;
+        }
+
+
+ .centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh; /* Висота контейнера 20% від висоти вікна */
+}
+
+.centered-container h4 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Стилі для пошукового поля */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.search-input {
+    width: 25%; /* Ширина інпуту 25% від ширини батьківського елемента */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #ffb6c1; /* Колір межі при фокусі */
+}
+
+/* Стилі для кнопки пошуку */
+.search-button {
+    background-color: #ffb6c1;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-button i {
+    font-size: 18px; /* Розмір іконки */
+}
+
+.search-button:hover {
+    background-color: #ff9ca1;
+}
+
+/* Стиль для кнопки додавання рецепту */
+.add-recipe-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffb6c1; /* Колір кнопки */
+    color: white;
+    font-size: 24px;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-recipe-btn:hover {
+    background-color: #ff9ca1; /* Трохи інший колір при наведенні */
+}
+
+.add-recipe-btn i {
+    font-size: 18px; /* Іконка */
+}
