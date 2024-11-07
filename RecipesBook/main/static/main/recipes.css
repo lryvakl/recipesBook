@@ -45,6 +45,31 @@ h1 {
     font-weight: bold;
 }
 
+/* Стиль для кнопки додавання рецепту */
+.add-recipe-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffb6c1; /* Колір кнопки */
+    color: white;
+    font-size: 24px;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-recipe-btn:hover {
+    background-color: #ff9ca1; /* Трохи інший колір при наведенні */
+}
+
+.add-recipe-btn i {
+    font-size: 18px; /* Іконка */
+}
+
+
 /* Flex container for the search form */
 .search-form {
     display: flex;
@@ -58,17 +83,17 @@ h1 {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 10px;
     margin-right: 10px;
 }
 
 /* Styling for the search button */
 .search-form button {
-    padding: 10px 20px;
+    padding: 13px 20px;
     background-color: #ffb6c1; /* green background */
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
 }
@@ -81,6 +106,7 @@ h1 {
 
 /* Збільшена відстань між картками */
 .card {
+    position: relative;
     width: 90%;
     max-width: 1200px;
     border-radius: 12px; /* Більші заокруглені кути */
@@ -136,23 +162,36 @@ h1 {
     color: #495057;
 }
 
-.read-more {
+/* Стилі для кнопки внизу картки */
+.recipe-card-footer {
+    position: absolute;
+    left: 20px; /* Відступ від лівого краю картки */
+    bottom: 20px;
+    text-align: left; /* Центруємо кнопку */
+}
+
+.view-recipe-btn {
+    padding: 12px 24px; /* Відступи для кнопки */
+    background-color: #ffb6c1; /* Яскравий оранжевий фон */
+    color: white; /* Текст білим */
     font-size: 16px;
-    color: #007bff;
+    font-weight: bold;
     text-decoration: none;
-    display: inline-flex;
-    align-items: center;
+    border-radius: 10px; /* Округлі кути */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легке тіньове оформлення */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавні зміни */
 }
 
-.read-more:hover {
-    text-decoration: underline;
+.view-recipe-btn:hover {
+    background-color: #ff9ca1; /* Трохи темніший колір при наведенні */
+    transform: translateY(-3px); /* Легке піднімання кнопки */
 }
 
-.read-more .icon {
-    margin-left: 5px;
-    width: 16px;
-    height: 16px;
+.view-recipe-btn .icon {
+    margin-left: 8px; /* Відстань між текстом і стрілкою */
+    font-size: 18px; /* Розмір стрілки */
 }
+
 
 /* Покращення стилю для зображень */
 .image {

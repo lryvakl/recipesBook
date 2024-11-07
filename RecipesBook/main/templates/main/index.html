@@ -16,8 +16,8 @@
 <header>
     <a href='about-us' class="back-btn">Recipes</a>
     <h1>What’s for Dinner?</h1>
-     <a href='profile' class="back-btn">My Profile</a>
-    <a href="login"> <button class="register-btn">Sign in</button></a>
+     <a href="{% url 'profile' %}" class="back-btn">My Profile</a>
+    <a href="{% url 'login' %}"> <button class="register-btn">Sign in</button></a>
 
 </header>
 
@@ -26,10 +26,43 @@
         <h4>What's in your fridge?</h4>
     </div>
 
-    <div class="search-container">
-        <input class="search-input" type="search" placeholder="Ingredients" aria-label="Ingredients">
-        <button class="search-button"><i class="fas fa-search"></i></button>
+<div class="container">
+<form class="search-container" action="{% url 'search_ingredients' %}" method="GET">
+    <input class="search-input" type="search" name="q" placeholder="Ingredients" aria-label="Ingredients">
+    <button class="search-button" type="submit"><i class="fas fa-search"></i></button>
+</form>
+{% if query %}
+
+    <div class="card-container">
+        {% if results %}
+            {% for recipe in results %}
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <strong class="category">{{ recipe.category }}</strong>
+                            <h3 class="title">{{ recipe.name }}</h3>
+                            <p class="ingredients">{{ recipe.ingredients }}</p>
+                            <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
+                            <div class="recipe-card-footer">
+                                <a href="/recipe-detail/{{ recipe.id }}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+                            </div>
+                        </div>
+                        <div class="image">
+                            {% if recipe.image %}
+                                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" width="200" height="250">
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No recipes found.</p>
+        {% endif %}
     </div>
+{% endif %}
+
+</div>
 
 <button class="add-recipe-btn" onclick="window.location.href='addRecipe'">
     <i class="fas fa-plus"></i> Add Recipe

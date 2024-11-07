@@ -38,13 +38,16 @@
     </div>
 
     <div class="text-center my-3">
-      <a href="changePass" class="text-decoration-none">Forgot your password?</a>
+      <a href= "{% url 'changePass' %}" class="text-decoration-none">Forgot your password?</a>
     </div>
 
     <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
 
     <!-- Register new account button -->
-    <button class="btn btn-secondary w-100 mt-2" type="button" onclick="window.location.href='register'">Register a new account</button>
+   <a href="{% url 'register' %}" class="btn btn-secondary w-100 mt-2">Register a new account</a>
+
+
+
 
 </form>
 
