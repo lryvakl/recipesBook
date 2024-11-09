@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="&#10;зроблені наброски всіх сторінок, можливе додавання власного рецепту">
+    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="&#10;доданий пошук на головній сторінці">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/recipes.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/main/recipes.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/main/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1730896717199</updated>
       <workItem from="1730896719362" duration="6144000" />
-      <workItem from="1730902876825" duration="51536000" />
+      <workItem from="1730902876825" duration="52810000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -110,7 +103,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730995065539</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="&#10;доданий пошук на головній сторінці">
+      <option name="closed" value="true" />
+      <created>1731011998563</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731011998563</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,7 +141,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first" />
     <MESSAGE value="&#10;зроблені наброски всіх сторінок, можливе додавання власного рецепту" />
-    <option name="LAST_COMMIT_MESSAGE" value="&#10;зроблені наброски всіх сторінок, можливе додавання власного рецепту" />
+    <MESSAGE value="&#10;доданий пошук на головній сторінці" />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;доданий пошук на головній сторінці" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/recipesBook$views.coverage" NAME="views Coverage Results" MODIFIED="1730981920564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RecipesBook/main" />
