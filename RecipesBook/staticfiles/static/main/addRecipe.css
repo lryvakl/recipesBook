@@ -1,0 +1,85 @@
+
+   body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 20px; background-color: #ffb6c1; position: relative; }
+        header h1 { font-size: 24px; margin : 0; color: white; position: relative; text-align: center; flex-grow: 1;
+}
+        header .back-btn { text-decoration: none; margin-right:10px; color: white; font-weight: bold; }
+        header .back-btn:hover { text-decoration: underline; }
+
+.form-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Загальні стилі для всіх груп полів */
+.form-group {
+    margin-bottom: 20px;
+     border-color: #ffb6c1;
+}
+
+/* Стилі для заголовків */
+.form-group label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Стилі для полів вводу */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ffb6c1;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+
+}
+
+/* Стилі для полів textarea */
+.form-group textarea {
+    resize: vertical;
+
+}
+
+/* Стилі для кнопки Submit */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffb6c1;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Ефект при наведенні на кнопку */
+.submit-btn:hover {
+    background-color: #ff9ca1;
+}
+
+/* Стилі для помилок */
+.form-group input:invalid,
+.form-group textarea:invalid {
+    border-color: #e74c3c;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #ff9ca1;
+    outline: none;
+}
