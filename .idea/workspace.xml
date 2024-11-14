@@ -4,7 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="&#10;доданий пошук на головній сторінці" />
+    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="&#10;доданий пошук на головній сторінці">
+      <change afterPath="$PROJECT_DIR$/RecipesBook/data/data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecipesBook/main/static/login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecipesBook/main/static/profile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/IMG_1086.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/Yak-pryhotuvaty-idealnyi-omlet-main.jpg.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/dda9f38ad2905fc45f12b86ec791439f.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/napoleon_gallery3-562x429.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/ukrainian-borscht.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/addRecipe.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/addRecipe.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/management/commands/import_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/recipes.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/recipes.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/addRecipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/addRecipe.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,28 +68,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.views.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.views.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/RecipesBook" />
+      <recent name="$PROJECT_DIR$/RecipesBook/main/data" />
+      <recent name="$PROJECT_DIR$/RecipesBook/main/static" />
       <recent name="$PROJECT_DIR$/RecipesBook/main/media/media" />
       <recent name="$PROJECT_DIR$/RecipesBook/main/media" />
-      <recent name="$PROJECT_DIR$/RecipesBook/main/media/main" />
-      <recent name="$PROJECT_DIR$/RecipesBook/main/static/main" />
-      <recent name="$PROJECT_DIR$/RecipesBook/main" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -84,6 +111,8 @@
       <updated>1730896717199</updated>
       <workItem from="1730896719362" duration="6144000" />
       <workItem from="1730902876825" duration="53004000" />
+      <workItem from="1731151525391" duration="11879000" />
+      <workItem from="1731604640036" duration="7896000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -125,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731151463344</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="&#10;доданий пошук на головній сторінці">
+      <option name="closed" value="true" />
+      <created>1731591470556</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731591470556</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

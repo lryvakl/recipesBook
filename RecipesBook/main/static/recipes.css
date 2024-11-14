@@ -1,0 +1,231 @@
+   body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 20px; background-color: #ffb6c1; position: relative; }
+        header h1 { font-size: 24px; margin : 0; color: white; position: relative; text-align: center; flex-grow: 1;
+}
+        header .back-btn { text-decoration: none; margin-right:10px; color: white; font-weight: bold; }
+        header .back-btn:hover { text-decoration: underline; }
+   .register-btn {
+            background-color: darkgray; /* Зелений колір для кнопки */
+            color: white; /* Текст білим */
+
+            padding: 5px 10px; /* Відступи для кнопки */
+            font-size: 14px; /* Розмір шрифту */
+            font-weight: bold;
+            border: none; /* Без меж */
+            border-radius: 8px; /* Заокруглені кути */
+            cursor: pointer; /* Курсор як рука */
+            transition: background-color 0.3s ease; /* Плавна зміна кольору */
+}
+   .register-btn:hover {
+            background-color: dimgray;
+        }
+
+/* General styling for the body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 ;
+}
+
+/* Header styling with Flexbox to align the elements horizontally */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+/* Styling for the title */
+h1 {
+    margin-right: 30px; /* space between the title and the form */
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* Стиль для кнопки додавання рецепту */
+.add-recipe-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffb6c1; /* Колір кнопки */
+    color: white;
+    font-size: 24px;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-recipe-btn:hover {
+    background-color: #ff9ca1; /* Трохи інший колір при наведенні */
+}
+
+.add-recipe-btn i {
+    font-size: 18px; /* Іконка */
+}
+
+
+/* Flex container for the search form */
+.search-form {
+    display: flex;
+    align-items: center;
+    width: 50%; /* set the width of the form */
+}
+
+/* Styling for the input field */
+.search-form input {
+    flex-grow: 1; /* input field takes available space */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+/* Styling for the search button */
+.search-form button {
+    padding: 13px 20px;
+    background-color: #ffb6c1; /* green background */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Hover effect for the search button */
+.search-form button:hover {
+    background-color: #ff9ca1; /* dark green */
+}
+
+
+/* Збільшена відстань між картками */
+.card {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 12px; /* Більші заокруглені кути */
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Більш виразні тіні */
+    background-color: white;
+    margin-bottom: 30px; /* Збільшена відстань між картками */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ефект при наведенні */
+}
+
+/* Підсвітка картки при наведенні */
+.card:hover {
+    transform: translateY(-5px); /* Легкий підйом картки */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Яскравіша тінь */
+}
+
+.card-content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    border-top: 2px solid #f0f0f0; /* Тонка лінія зверху для розмежування */
+}
+
+.card-text {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.category {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #ffb6c1;
+    font-weight: 700;
+    text-transform: uppercase; /* Текст категорії великими літерами */
+}
+
+.title {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333; /* Тонкий чорний колір для заголовка */
+}
+
+.ingredients {
+    font-size: 14px;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #495057;
+}
+
+/* Стилі для кнопки внизу картки */
+.recipe-card-footer {
+    position: absolute;
+    left: 20px; /* Відступ від лівого краю картки */
+    bottom: 20px;
+    text-align: left; /* Центруємо кнопку */
+}
+
+.view-recipe-btn {
+    padding: 12px 24px; /* Відступи для кнопки */
+    background-color: #ffb6c1; /* Яскравий оранжевий фон */
+    color: white; /* Текст білим */
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px; /* Округлі кути */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легке тіньове оформлення */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавні зміни */
+}
+
+.view-recipe-btn:hover {
+    background-color: #ff9ca1; /* Трохи темніший колір при наведенні */
+    transform: translateY(-3px); /* Легке піднімання кнопки */
+}
+
+.view-recipe-btn .icon {
+    margin-left: 8px; /* Відстань між текстом і стрілкою */
+    font-size: 18px; /* Розмір стрілки */
+}
+
+
+/* Покращення стилю для зображень */
+.image {
+    display: none; /* Сховане зображення за замовчуванням */
+    flex: 0 0 200px;
+    position: relative;
+    border-radius: 12px; /* Краще оформлення */
+    overflow: hidden;
+}
+
+.placeholder-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Підгонка зображення по розміру */
+}
+
+/* Показати зображення на великих екранах */
+@media (min-width: 768px) {
+    .image {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-content {
+        flex-direction: column;
+    }
+
+    .card-text {
+        padding-right: 0;
+    }
+
+    .image {
+        display: none;
+    }
+}
+

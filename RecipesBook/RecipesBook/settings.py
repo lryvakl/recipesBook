@@ -103,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 import os
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'main' ,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -125,7 +125,7 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR /'main', 'static']
+STATICFILES_DIRS = [BASE_DIR /'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
