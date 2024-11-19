@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="зміна передачі рецептів ( тепер через api)">
+    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="виправлення візуальних недоліків">
+      <change afterPath="$PROJECT_DIR$/RecipesBook/main/static/recipeDetail.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecipesBook/main/templatetags/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecipesBook/main/templatetags/custom_filters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/data/data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/services.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,11 +75,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/RecipesBook/main/templates/main" />
       <recent name="$PROJECT_DIR$/RecipesBook" />
       <recent name="$PROJECT_DIR$/RecipesBook/main/data" />
       <recent name="$PROJECT_DIR$/RecipesBook/main/static" />
       <recent name="$PROJECT_DIR$/RecipesBook/main/media/media" />
-      <recent name="$PROJECT_DIR$/RecipesBook/main/media" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -93,6 +102,7 @@
       <workItem from="1730902876825" duration="53004000" />
       <workItem from="1731151525391" duration="11879000" />
       <workItem from="1731604640036" duration="7896000" />
+      <workItem from="1732043185083" duration="7718000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -150,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732033889851</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="виправлення візуальних недоліків">
+      <option name="closed" value="true" />
+      <created>1732038826407</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732038826407</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,7 +212,8 @@
     <MESSAGE value="&#10;зроблені наброски всіх сторінок, можливе додавання власного рецепту" />
     <MESSAGE value="&#10;доданий пошук на головній сторінці" />
     <MESSAGE value="зміна передачі рецептів ( тепер через api)" />
-    <option name="LAST_COMMIT_MESSAGE" value="зміна передачі рецептів ( тепер через api)" />
+    <MESSAGE value="виправлення візуальних недоліків" />
+    <option name="LAST_COMMIT_MESSAGE" value="виправлення візуальних недоліків" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/recipesBook$views.coverage" NAME="views Coverage Results" MODIFIED="1730981920564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RecipesBook/main" />

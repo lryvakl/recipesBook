@@ -25,34 +25,34 @@
                 <button type="submit">Search</button>
             </form>
         </div>
-<div class="card-container">
+
+        <div class="card-container">
     {% for recipe in recipes %}
-    <div class="card">
-        <div class="card-content">
-            <div class="card-text">
-                <strong class="category">{{ recipe.category }}</strong>
-                <h3 class="title">{{ recipe.name }}</h3>
-                <p class="ingredients">{{ recipe.ingredients }}</p>
-                <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
-                <div class="recipe-card-footer">
-                    {% if recipe.id %}
-                        <a href="/recipe-detail/{{ recipe.id }}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
-                    {% else %}
-                        <a href="{{ recipe.link }}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+        <div class="card">
+            <div class="card-content">
+                <div class="card-text">
+                    <strong class="category">{{ recipe.category }}</strong>
+                    <h3 class="title">{{ recipe.name }}</h3>
+                    <p class="ingredients">{{ recipe.ingredients }}</p>
+                    <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
+                    <div class="recipe-card-footer">
+                        {% if recipe.id %}
+                           <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+                        {% else %}
+                            <a href="{{ recipe.link }}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="image">
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image }}" alt="{{ recipe.name }}" width="200" height="250">
                     {% endif %}
                 </div>
             </div>
-            <div class="image">
-                {% if recipe.image %}
-                    <img src="{{ recipe.image }}" alt="{{ recipe.name }}" width="200" height="250">
-                {% else %}
-                    <img src="default_image.jpg" alt="No Image" width="200" height="250">
-                {% endif %}
-            </div>
         </div>
-    </div>
     {% endfor %}
 </div>
+
 
 
     </div>

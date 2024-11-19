@@ -32,10 +32,21 @@
         <p>Here you can view and manage all the recipes you've created.</p>
     </div>
 
-    <div id="favorite-recipes" class="tab-content">
-        <h3>Favorite Recipes</h3>
-        <p>Your favorite recipes are saved here for easy access.</p>
-    </div>
+  <div id="favorite-recipes" class="tab-content">
+    <h3>Favorite Recipes</h3>
+    {% if favorite_recipes %}
+        <ul>
+            {% for recipe in favorite_recipes %}
+                <li>
+                    <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no favorite recipes yet.</p>
+    {% endif %}
+</div>
+
 
     <div id="settings" class="tab-content">
         <h3>Settings</h3>

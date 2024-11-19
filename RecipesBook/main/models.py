@@ -2,6 +2,7 @@
 import os
 # Create your models here.
 from django.db import models
+from django.contrib.auth.models import User
 
 class Recipe(models.Model):
     name = models.CharField('Name',max_length=255)
@@ -9,7 +10,7 @@ class Recipe(models.Model):
     instructions = models.TextField('Instructions')
     category = models.CharField('category',max_length=50)
     image = models.ImageField('Image',upload_to='media/',default='image.jpg')
-
+    favorite_by_users = models.ManyToManyField(User, related_name='favorite_recipes', blank=True)
 
     def get_image_url(self):
         # Перевіряємо, чи має файл розширення

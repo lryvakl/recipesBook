@@ -1,3 +1,5 @@
+from dbm import error
+
 from django.shortcuts import render
 import csv
 import re
@@ -6,6 +8,8 @@ from django.shortcuts import redirect
 from fuzzysearch import find_near_matches
 from django.shortcuts import get_object_or_404, render
 from .services import get_recipe_by_name
+from django.contrib.auth.decorators import login_required
+
 
 
 def index(request):
@@ -19,6 +23,11 @@ def about(request):
 def recipes_view(request):
     recipes = Recipe.objects.all()  # Отримуємо всі рецепти з бази даних
     return render(request, 'main/about.html', {'recipes': recipes})
+
+def recipe_detail(request, id):
+    # Отримуємо рецепт з бази даних за ID
+    recipe = get_object_or_404(Recipe, id=id)
+    return render(request, 'main/recipe_detail.html', {'recipe': recipe})
 
 def login(request):
     return render(request, 'main/login.html')
@@ -36,8 +45,10 @@ def profile(request):
     return render(request, 'main/profile.html')
 
 
+
 def addRecipe(request):
     return render(request, 'main/addRecipe.html')
+
 
 
 def add_recipe(request):
@@ -68,8 +79,14 @@ def search_recipes(request):
     query = request.GET.get('q', '').strip()  # Отримуємо параметр пошуку
     results = []
 
-    # Отримуємо всі локальні рецепти
-    local_recipes = Recipe.objects.all()
+    # Завантажуємо всі рецепти з вашої бази
+    if query:
+        # Якщо є пошуковий запит, фільтруємо за ім'ям
+        local_recipes = Recipe.objects.filter(name__icontains=query)
+    else:
+        # Якщо запиту немає, показуємо всі рецепти
+        local_recipes = Recipe.objects.all()
+
     for recipe in local_recipes:
         results.append({
             'id': recipe.id,
@@ -81,15 +98,13 @@ def search_recipes(request):
             'link': None,  # Локальні рецепти не мають зовнішнього посилання
         })
 
-    # Якщо немає параметра пошуку, також додаємо всі рецепти з Spoonacular
-    if not query:
-        spoonacular_results = get_recipe_by_name("")  # Викликаємо Spoonacular з пустим запитом
-    else:
-        # Якщо є параметр пошуку, шукаємо за назвою
+    # Пошук через Spoonacular
+    if query:  # Якщо є запит, шукаємо за ім'ям і для Spoonacular
         spoonacular_results = get_recipe_by_name(query)
+    else:
+        spoonacular_results = get_recipe_by_name("")  # Пошук без параметрів для Spoonacular
 
-    # Додаємо рецепти з Spoonacular
-    if 'error' not in spoonacular_results:  # Перевіряємо, чи немає помилок в API-відповіді
+    if 'error' not in spoonacular_results:  # Перевірка на помилки у відповіді від Spoonacular
         for recipe in spoonacular_results:
             results.append({
                 'id': None,  # Рецепт з Spoonacular не має локального ID
@@ -100,6 +115,7 @@ def search_recipes(request):
                 'image': recipe['image_url'],
                 'link': recipe.get('sourceUrl', '#'),  # Додаємо посилання на Spoonacular
             })
+
     return render(request, 'main/about.html', {'recipes': results})
 
 
@@ -141,3 +157,14 @@ def search_ingredients(request):
                     })
 
     return render(request, 'main/index.html', {'results': results, 'query': query})
+
+
+
+def add_to_favorites(request, id):
+    # Отримуємо рецепт за ID
+    recipe = get_object_or_404(Recipe, id=id)
+
+    # Додаємо цей рецепт до улюблених поточного користувача
+    recipe.favorite_by_users.add(request.user)
+
+    return redirect('recipe_detail', id=id)

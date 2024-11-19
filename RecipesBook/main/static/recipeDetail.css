@@ -1,0 +1,168 @@
+
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+       .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 20px; background-color: #ffb6c1; position: relative; }
+        header h1 { font-size: 24px; margin : 0; color: white; position: relative; text-align: center; flex-grow: 1;
+}
+        header .back-btn { text-decoration: none; margin-right:10px; color: white; font-weight: bold; }
+        header .back-btn:hover { text-decoration: underline; }
+   .register-btn {
+            background-color: darkgray; /* Зелений колір для кнопки */
+            color: white; /* Текст білим */
+
+            padding: 5px 10px; /* Відступи для кнопки */
+            font-size: 14px; /* Розмір шрифту */
+            font-weight: bold;
+            border: none; /* Без меж */
+            border-radius: 8px; /* Заокруглені кути */
+            cursor: pointer; /* Курсор як рука */
+            transition: background-color 0.3s ease; /* Плавна зміна кольору */
+}
+   .register-btn:hover {
+            background-color: dimgray;
+        }
+
+
+/* Загальні стилі для сторінки */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Контейнер для основного вмісту */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Стиль для хедера */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffb6c1;
+    position: relative;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+    color: white;
+    text-align: center;
+    flex-grow: 1;
+}
+
+header .back-btn, header .register-btn {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+header .back-btn:hover, header .register-btn:hover {
+    text-decoration: underline;
+}
+
+/* Основний контейнер для рецепту */
+.main-recipe-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+/* Стилі для зображення рецепту */
+.recipe-image {
+    flex: 0 0 40%; /* Зображення займає 40% ширини */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Стилі для текстової частини рецепту */
+.recipe-details {
+    flex: 0 0 55%; /* Текст займає 55% ширини */
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Стиль для заголовка рецепту */
+.recipe-details h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Стиль для категорії */
+.recipe-details .category {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffb6c1;
+    margin-bottom: 20px;
+}
+
+/* Стиль для інгредієнтів */
+.recipe-details .ingredients {
+    font-size: 14px;
+    color: #495057;
+    margin-bottom: 20px;
+}
+
+.recipe-details .ingredients p {
+    margin: 5px 0;
+}
+
+/* Стиль для інструкцій */
+.recipe-details .instructions {
+    font-size: 16px;
+    color: #495057;
+}
+
+/* Медіа запити для адаптивного дизайну */
+@media (max-width: 768px) {
+    .main-recipe-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .recipe-image, .recipe-details {
+        flex: 0 0 100%;
+    }
+
+    .recipe-details {
+        margin-top: 20px;
+    }
+
+    .recipe-details h1 {
+        font-size: 28px;
+    }
+}
+
+.favorite-btn {
+    background-color: #ffb6c1; /* Основний колір */
+    color: white; /* Текст білим */
+    padding: 10px 20px; /* Відступи */
+    border: none; /* Без рамки */
+    border-radius: 8px; /* Округлені кути */
+    font-size: 16px; /* Розмір шрифту */
+    cursor: pointer; /* Зміна курсору */
+    transition: background-color 0.3s ease;
+}
+
+.favorite-btn:hover {
+    background-color: #ff9ca1; /* Темніший колір при наведенні */
+}

@@ -1,14 +1,68 @@
-<!-- main/recipe_detail.html -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ recipe.name }}</title>
+    {% load static %}
+    {% load custom_filters %}
+    <link rel="stylesheet" href="{% static 'recipeDetail.css' %}">
 </head>
 <body>
-    <h1>{{ recipe.name }}</h1>
-    <p>{{ recipe.ingredients }}</p>
-    <p>{{ recipe.instructions }}</p>
+    <!-- Хедер -->
+    <header>
+        <a href="{% url 'about-us' %}" class="back-btn">Recipes</a>
+        <h1>What’s for Dinner?</h1>
+        <a href="{% url 'profile' %}" class="back-btn">My Profile</a>
+        <a href="{% url 'login' %}"><button class="register-btn">Sign in</button></a>
+    </header>
+
+    <!-- Основний контейнер -->
+    <div class="container">
+        <div class="main-recipe-container">
+            <!-- Зображення рецепту -->
+            <div class="recipe-image">
+                <img src="{% if recipe.get_image_url %}{{ recipe.get_image_url }}{% else %}{{ recipe.image }}{% endif %}" alt="{{ recipe.name }}">
+            </div>
+
+            <!-- Деталі рецепту -->
+            <div class="recipe-details">
+                <h1>{{ recipe.name }}</h1>
+                <p class="category">Category: {{ recipe.category|default:"Uncategorized" }}</p>
+
+                <!-- Інгредієнти -->
+                <div class="ingredients">
+                    <h3>Ingredients:</h3>
+                    {% if recipe.ingredients %}
+                        <ul>
+                            {% for ingredient in recipe.ingredients|split:"," %}
+                                <li>{{ ingredient }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No ingredients available.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Інструкції -->
+                <div class="instructions">
+                    <h3>Instructions:</h3>
+                    {% if recipe.instructions %}
+                        <p>{{ recipe.instructions }}</p>
+                    {% else %}
+                        <p>No instructions available.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Кнопка додавання до улюблених -->
+                <div class="add-favorite">
+                    <form method="POST" action="{% url 'add_to_favorites' recipe.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="favorite-btn">Add to Favorite Recipes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

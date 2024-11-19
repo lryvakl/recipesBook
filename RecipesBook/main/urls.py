@@ -16,5 +16,7 @@ urlpatterns = [
     path('recipes/', views.recipes_view, name='recipes'),
     path('about-us', views.search_recipes, name='search'),
     path('search/', views.search_ingredients, name='search_ingredients'),
-
+    path('recipe-detail/<int:id>/', views.recipe_detail, name='recipe_detail'),
+    path('add-to-favorites/<int:id>/', views.add_to_favorites, name='add_to_favorites'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
