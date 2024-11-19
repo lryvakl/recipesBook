@@ -5,30 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="&#10;доданий пошук на головній сторінці">
-      <change afterPath="$PROJECT_DIR$/RecipesBook/data/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecipesBook/main/static/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecipesBook/main/static/profile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecipesBook/main/services.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/IMG_1086.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/Yak-pryhotuvaty-idealnyi-omlet-main.jpg.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/dda9f38ad2905fc45f12b86ec791439f.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/napoleon_gallery3-562x429.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/media/media/ukrainian-borscht.webp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/addRecipe.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/addRecipe.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/management/commands/import_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/profile.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/recipes.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/recipes.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/main/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/addRecipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/addRecipe.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +23,7 @@
       <list>
         <option value="CSS File" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>

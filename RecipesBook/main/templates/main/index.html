@@ -35,28 +35,31 @@
 
     <div class="card-container">
         {% if results %}
-            {% for recipe in results %}
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-text">
-                            <strong class="category">{{ recipe.category }}</strong>
-                            <h3 class="title">{{ recipe.name }}</h3>
-                            <p class="ingredients">{{ recipe.ingredients }}</p>
-                            <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
-                            <div class="recipe-card-footer">
-                                <a href="/recipe-detail/{{ recipe.id }}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
-                            </div>
-                        </div>
-                        <div class="image">
-                            {% if recipe.image %}
-                                <img src="{{ recipe.get_image_url }}" alt="{{ recipe.name }}" width="200" height="250">
+           {% for recipe in results %}
+<div class="card">
+    <div class="card-content">
+        <div class="card-text">
+            <strong class="category">{{ recipe.category }}</strong>
+            <h3 class="title">{{ recipe.name }}</h3>
+            <p class="ingredients"><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+            <p class="description"><strong>Instructions:</strong> {{ recipe.instructions|truncatewords:20 }}</p>
+            <div class="recipe-card-footer">
+                {% if recipe.id %}
+                    <a href="/recipe-detail/{{ recipe.id }}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+                {% else %}
+                    <a href="#" class="view-recipe-btn">External Recipe</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="image">
+            {% if recipe.image %}
+                <img src="{{ recipe.image }}" alt="{{ recipe.name }}" width="200" height="250">
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
 
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-            {% endfor %}
         {% else %}
             <p>No recipes found.</p>
         {% endif %}
