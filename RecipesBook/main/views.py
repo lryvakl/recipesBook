@@ -65,41 +65,41 @@ def add_recipe(request):
 
 
 def search_recipes(request):
-    query = request.GET.get('q', '').strip()  # Отримуємо запит користувача
-    query = re.sub(r'[^\w\s,]', '', query)  # Видаляємо зайві символи
-
+    query = request.GET.get('q', '').strip()  # Отримуємо параметр пошуку
     results = []
 
-    if query:
-        # Локальний пошук за назвою рецепту
-        all_recipes = Recipe.objects.filter(
-            name__icontains=query)  # Використовуємо __icontains для пошуку за частиною назви
-        for recipe in all_recipes:
+    # Отримуємо всі локальні рецепти
+    local_recipes = Recipe.objects.all()
+    for recipe in local_recipes:
+        results.append({
+            'id': recipe.id,
+            'name': recipe.name,
+            'ingredients': recipe.ingredients,
+            'instructions': recipe.instructions,
+            'category': recipe.category,
+            'image': recipe.get_image_url(),
+            'link': None,  # Локальні рецепти не мають зовнішнього посилання
+        })
+
+    # Якщо немає параметра пошуку, також додаємо всі рецепти з Spoonacular
+    if not query:
+        spoonacular_results = get_recipe_by_name("")  # Викликаємо Spoonacular з пустим запитом
+    else:
+        # Якщо є параметр пошуку, шукаємо за назвою
+        spoonacular_results = get_recipe_by_name(query)
+
+    # Додаємо рецепти з Spoonacular
+    if 'error' not in spoonacular_results:  # Перевіряємо, чи немає помилок в API-відповіді
+        for recipe in spoonacular_results:
             results.append({
-                'id': recipe.id,
-                'name': recipe.name,
-                'ingredients': recipe.ingredients,
-                'instructions': recipe.instructions,
-                'category': recipe.category,
-                'image': recipe.get_image_url(),
-                'link': None,  # Немає посилання для локальних рецептів
+                'id': None,  # Рецепт з Spoonacular не має локального ID
+                'name': recipe['name'],
+                'ingredients': recipe['ingredients'],
+                'instructions': recipe['instructions'],
+                'category': recipe.get('category', 'Unknown'),
+                'image': recipe['image_url'],
+                'link': recipe.get('sourceUrl', '#'),  # Додаємо посилання на Spoonacular
             })
-
-        # Пошук через Spoonacular API
-        spoonacular_results = get_recipe_by_name(query)  # Запит до Spoonacular
-        if 'error' not in spoonacular_results:
-            for recipe in spoonacular_results:
-                results.append({
-                    'id': None,  # Немає локального ID для Spoonacular
-                    'name': recipe['name'],
-                    'ingredients': recipe['ingredients'],
-                    'instructions': recipe['instructions'],
-                    'category': recipe['category'],
-                    'image': recipe['image_url'],
-
-                })
-
-    # Повертаємо шаблон із результатами
     return render(request, 'main/about.html', {'recipes': results})
 
 

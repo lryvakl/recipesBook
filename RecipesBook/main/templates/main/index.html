@@ -50,12 +50,12 @@
                     <a href="#" class="view-recipe-btn">External Recipe</a>
                 {% endif %}
             </div>
-        </div>
-        <div class="image">
-            {% if recipe.image %}
-                <img src="{{ recipe.image }}" alt="{{ recipe.name }}" width="200" height="250">
-            {% endif %}
-        </div>
+            </div>
+            <div class="image">
+                {% if recipe.image %}
+                    <img src="{{ recipe.image }}" alt="{{ recipe.name }}" width="200" height="250">
+                {% endif %}
+            </div>
     </div>
 </div>
 {% endfor %}
