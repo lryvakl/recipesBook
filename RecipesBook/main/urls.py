@@ -17,10 +17,12 @@ urlpatterns = [
     path('about-us', views.search_recipes, name='search'),
     path('search/', views.search_ingredients, name='search_ingredients'),
     path('recipe-detail/<int:id>/', views.recipe_detail, name='recipe_detail'),
+    path('recipe_detail_spoonacular/<str:title>/', views.recipe_detail_spoonacular, name='recipe_detail_spoonacular'),
     path('add-to-favorites/<int:id>/', views.add_to_favorites, name='add_to_favorites'),
     path('add_to_favorites_spoonacular/<slug:slug>/', views.add_to_favorites_spoonacular,name='add_to_favorites_spoonacular'),
     path('remove_from_favorites/<int:id>/', views.remove_from_favorites, name='remove_from_favorites'),
-    path('recipe_detail_spoonacular/<str:title>/', views.recipe_detail_spoonacular, name='recipe_detail_spoonacular')
+    path('add-to-favorites-spoonacular/<str:title>/', views.add_to_favorites_spoonacular, name='add_to_favorites_spoonacular'),
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

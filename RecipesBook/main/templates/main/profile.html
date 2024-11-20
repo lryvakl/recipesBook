@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
-   {% load static %}
+    {% load static %}
+    {% load custom_filters %}
    <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
 </head>
 <body>
@@ -54,7 +55,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="image">
+                           <div class="image">
                                 {% if recipe.image %}
                                     <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" width="200" height="250">
                                 {% endif %}

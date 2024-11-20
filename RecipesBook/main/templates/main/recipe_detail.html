@@ -20,10 +20,11 @@
     <!-- Основний контейнер -->
     <div class="container">
         <div class="main-recipe-container">
-            <!-- Зображення рецепту -->
+           <!-- Зображення рецепту -->
             <div class="recipe-image">
                 <img src="{% if recipe.get_image_url %}{{ recipe.get_image_url }}{% else %}{{ recipe.image }}{% endif %}" alt="{{ recipe.name }}">
             </div>
+
 
             <!-- Деталі рецепту -->
             <div class="recipe-details">
@@ -55,10 +56,10 @@
                 </div>
 
                 <!-- Кнопка додавання до улюблених -->
-              <div class="add-favorite">
+             <div class="add-favorite">
     <form method="POST"
-          action="{% if recipe.slug %}
-                    {% url 'add_to_favorites_spoonacular' recipe.slug %}
+          action="{% if recipe.title %}
+                    {% url 'add_to_favorites_spoonacular' recipe.title %}
                  {% else %}
                     {% url 'add_to_favorites' recipe.id %}
                  {% endif %}">
@@ -66,6 +67,8 @@
         <button type="submit" class="favorite-btn">Add to Favorite Recipes</button>
     </form>
 </div>
+
+
 
 
             </div>

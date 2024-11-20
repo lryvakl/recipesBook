@@ -7,38 +7,38 @@ def get_recipe_by_name(name):
     """
     Отримання рецепту за назвою з Spoonacular API.
     """
+    # Спершу шукаємо рецепт за назвою
     url = f"{BASE_URL}/complexSearch"
     params = {
         'query': name,
-        'addRecipeInformation': True,  # Запит на додаткову інформацію про рецепт
         'apiKey': settings.SPOONACULAR_API_KEY,
+        'number': 1  # Отримуємо лише перший результат
     }
-    response = requests.get(url, params=params)
+    search_response = requests.get(url, params=params)
 
-    if response.status_code == 200:
-        data = response.json().get('results', [])
-        recipes = []
-        for recipe in data:
-            # Перевіряємо наявність усіх необхідних полів
-            id = recipe.get('id')
-            if not id:
-                continue
-            title = recipe.get('title', 'No Title')
-            ingredients = ', '.join([i['original'] for i in recipe.get('extendedIngredients', [])]) if recipe.get('extendedIngredients') else 'No ingredients'
-            instructions = recipe.get('instructions', 'No instructions available') if recipe.get('instructions') else 'No instructions available'
-            category = recipe.get('dishTypes', ['Uncategorized'])[0] if recipe.get('dishTypes') else 'Uncategorized'
-            image_url = recipe.get('image', 'No image')
-            source_url = recipe.get('sourceUrl', '#')  # Додаємо посилання на джерело рецепту
+    if search_response.status_code == 200:
+        results = search_response.json().get('results', [])
+        if results:
+            recipe_id = results[0].get('id')
+            if recipe_id:
+                # Отримуємо детальну інформацію про рецепт
+                detail_url = f"{BASE_URL}/{recipe_id}/information"
+                detail_response = requests.get(detail_url, params={'apiKey': settings.SPOONACULAR_API_KEY})
 
-            recipes.append({
-                'id': id,
-                'name': title,
-                'ingredients': ingredients,
-                'instructions': instructions,
-                'category': category,
-                'image_url': image_url,
-                'sourceUrl': source_url,
-            })
-        return recipes
-    else:
-        return {'error': response.json()}
+                if detail_response.status_code == 200:
+                    recipe_data = detail_response.json()
+
+                    # Формуємо результат
+                    return [{
+                        'id': recipe_data.get('id'),
+                        'name': recipe_data.get('title', 'No Title'),
+                        'ingredients': ', '.join([i['original'] for i in recipe_data.get('extendedIngredients', [])]),
+                        'instructions': recipe_data.get('instructions', 'No instructions available'),
+                        'category': recipe_data.get('dishTypes', ['Uncategorized'])[0],
+                        'image_url': recipe_data.get('image', 'No image'),
+                        'sourceUrl': recipe_data.get('sourceUrl', '#'),
+
+                    }]
+
+    # Якщо щось пішло не так
+    return {'error': search_response.json()}
