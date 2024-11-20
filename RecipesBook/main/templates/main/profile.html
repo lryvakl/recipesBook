@@ -32,20 +32,41 @@
         <p>Here you can view and manage all the recipes you've created.</p>
     </div>
 
-  <div id="favorite-recipes" class="tab-content">
-    <h3>Favorite Recipes</h3>
-    {% if favorite_recipes %}
-        <ul>
-            {% for recipe in favorite_recipes %}
-                <li>
-                    <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>You have no favorite recipes yet.</p>
-    {% endif %}
-</div>
+   <div id="favorite-recipes" class="tab-content">
+        <h3>Favorite Recipes</h3>
+        {% if favorite_recipes %}
+            <div class="card-container">
+                {% for recipe in favorite_recipes %}
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-text">
+                                <strong class="category">{{ recipe.category }}</strong>
+                                <h3 class="title">{{ recipe.name }}</h3>
+                                <p class="ingredients">{{ recipe.ingredients }}</p>
+                                <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
+                                <div class="recipe-card-footer">
+                                    <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">
+                                        View Full Recipe <span class="icon">→</span>
+                                    </a>
+                                     <form action="{% url 'remove_from_favorites' recipe.id %}" method="post" class="remove-form">
+                                        {% csrf_token %}
+                                        <button type="submit" class="remove-btn">×</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="image">
+                                {% if recipe.image %}
+                                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" width="200" height="250">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>You have no favorite recipes yet.</p>
+        {% endif %}
+    </div>
 
 
     <div id="settings" class="tab-content">

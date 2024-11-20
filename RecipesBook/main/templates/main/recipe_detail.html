@@ -28,7 +28,7 @@
             <!-- Деталі рецепту -->
             <div class="recipe-details">
                 <h1>{{ recipe.name }}</h1>
-                <p class="category">Category: {{ recipe.category|default:"Uncategorized" }}</p>
+                <p class="category">Category: {{ recipe.category }}</p>
 
                 <!-- Інгредієнти -->
                 <div class="ingredients">
@@ -55,12 +55,19 @@
                 </div>
 
                 <!-- Кнопка додавання до улюблених -->
-                <div class="add-favorite">
-                    <form method="POST" action="{% url 'add_to_favorites' recipe.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="favorite-btn">Add to Favorite Recipes</button>
-                    </form>
-                </div>
+              <div class="add-favorite">
+    <form method="POST"
+          action="{% if recipe.slug %}
+                    {% url 'add_to_favorites_spoonacular' recipe.slug %}
+                 {% else %}
+                    {% url 'add_to_favorites' recipe.id %}
+                 {% endif %}">
+        {% csrf_token %}
+        <button type="submit" class="favorite-btn">Add to Favorite Recipes</button>
+    </form>
+</div>
+
+
             </div>
         </div>
     </div>

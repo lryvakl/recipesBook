@@ -39,7 +39,8 @@
                         {% if recipe.id %}
                            <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
                         {% else %}
-                            <a href="{{ recipe.link }}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+                        <a href="{% url 'recipe_detail_spoonacular' recipe.name %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+
                         {% endif %}
                     </div>
                 </div>

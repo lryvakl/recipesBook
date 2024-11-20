@@ -20,6 +20,9 @@ def get_recipe_by_name(name):
         recipes = []
         for recipe in data:
             # Перевіряємо наявність усіх необхідних полів
+            id = recipe.get('id')
+            if not id:
+                continue
             title = recipe.get('title', 'No Title')
             ingredients = ', '.join([i['original'] for i in recipe.get('extendedIngredients', [])]) if recipe.get('extendedIngredients') else 'No ingredients'
             instructions = recipe.get('instructions', 'No instructions available') if recipe.get('instructions') else 'No instructions available'
@@ -28,6 +31,7 @@ def get_recipe_by_name(name):
             source_url = recipe.get('sourceUrl', '#')  # Додаємо посилання на джерело рецепту
 
             recipes.append({
+                'id': id,
                 'name': title,
                 'ingredients': ingredients,
                 'instructions': instructions,

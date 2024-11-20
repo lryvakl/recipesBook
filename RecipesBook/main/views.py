@@ -1,5 +1,6 @@
 from dbm import error
 
+from django.conf import settings
 from django.shortcuts import render
 import csv
 import re
@@ -9,7 +10,9 @@ from fuzzysearch import find_near_matches
 from django.shortcuts import get_object_or_404, render
 from .services import get_recipe_by_name
 from django.contrib.auth.decorators import login_required
-
+import requests
+from django.conf import settings
+from django.utils.text import slugify
 
 
 def index(request):
@@ -41,7 +44,20 @@ def changePass(request):
     return render(request, 'main/changePass.html')
 
 
+@login_required
 def profile(request):
+
+    # Отримуємо всі улюблені рецепти поточного користувача
+    favorite_recipes = request.user.favorite_recipes.all()  # related_name='favorite_recipes'
+
+    # Передаємо список улюблених рецептів у контекст
+    context = {
+        'favorite_recipes': favorite_recipes,
+    }
+    return render(request, 'main/profile.html', context)
+
+
+def profile0(request):
     return render(request, 'main/profile.html')
 
 
@@ -165,6 +181,68 @@ def add_to_favorites(request, id):
     recipe = get_object_or_404(Recipe, id=id)
 
     # Додаємо цей рецепт до улюблених поточного користувача
-    recipe.favorite_by_users.add(request.user)
+    if request.user.is_authenticated:
+        recipe.favorite_by_users.add(request.user)
+        return redirect('recipe_detail', id=id)
+    else:
+        # Перенаправляємо неавторизованих користувачів на сторінку входу
+        return redirect('login')
 
-    return redirect('recipe_detail', id=id)
+
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib import messages
+
+
+@login_required
+def add_to_favorites_spoonacular(request, slug):
+    # Отримуємо дані рецепту з Spoonacular
+    url = f"https://api.spoonacular.com/recipes/{slug}/information"
+    response = requests.get(url, params={'apiKey': settings.SPOONACULAR_API_KEY})
+
+    if response.status_code == 200:
+        recipe_data = response.json()
+
+        # Створюємо новий рецепт або знаходимо вже існуючий
+        recipe, created = Recipe.objects.get_or_create(
+            name=recipe_data.get('title', ''),
+            defaults={
+                'ingredients': ', '.join(
+                    [ingredient['original'] for ingredient in recipe_data.get('extendedIngredients', [])]),
+                'instructions': recipe_data.get('instructions', 'No instructions available'),
+                'category': ', '.join(recipe_data.get('dishTypes', [])),
+                'image': recipe_data.get('image', ''),
+            }
+        )
+
+        # Додаємо рецепт до улюблених користувача
+        recipe.favorite_by_users.add(request.user)
+
+        # Перенаправляємо на сторінку рецепту
+        return redirect('recipe_detail')
+    else:
+        return render(request, 'error.html', {'message': 'Recipe not found.'})
+
+
+def remove_from_favorites(request, id):
+    # Отримуємо рецепт за ID
+    recipe = get_object_or_404(Recipe, id=id)
+
+    # Видаляємо рецепт із улюблених користувача
+    recipe.favorite_by_users.remove(request.user)
+
+    # Перенаправлення назад на сторінку профілю
+    return redirect('profile')
+
+
+
+def recipe_detail_spoonacular(request, title):
+    # Використовуємо slug замість id
+    url = f"https://api.spoonacular.com/recipes/complexSearch"
+    response = requests.get(url, params={'query': title, 'apiKey': settings.SPOONACULAR_API_KEY})
+
+    if response.status_code == 200:
+        recipe = response.json().get('results', [])[0]  # Припускаємо, що це перший результат
+        return render(request, 'main/recipe_detail.html', {'recipe': recipe})
+    else:
+        return render(request, 'error.html', {'message': 'Recipe not found.'})
