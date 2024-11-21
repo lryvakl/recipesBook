@@ -1,0 +1,258 @@
+/* Basic styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 20px;
+    background-color: #ffb6c1;
+    position: relative;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+    color:white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+header .back-btn {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+header .back-btn:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+/* Profile.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.back-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.back-btn:hover {
+    color: #333;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Стилі для форми */
+form {
+
+    background-color: white;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+h1.h3 {
+    text-align: center;
+    font-weight: 400;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.form-floating {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: #ffb6c1;
+    box-shadow: 0 0 5px rgba(255, 127, 80, 0.5);
+}
+
+/* Стилі для чекбокса */
+.form-check {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+/* Лінк забутого паролю */
+.text-center a {
+    font-size: 14px;
+    color: #ffb6c1;
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+/* Кнопки */
+button {
+    background-color: #ffb6c1;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    display: block;
+    width: 100%;  /* Повна ширина для кнопки */
+    text-align: center; /* Центрування тексту */
+}
+
+button:hover {
+    background-color: #ff9ca1;
+}
+
+/* Кнопка для реєстрації */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+label {
+    position: absolute;
+    top: -20px;
+    left: 15px;
+    font-size: 14px;
+    color: #555;
+    background-color: white;
+    padding: 0 5px;
+    font-weight: 600;
+}
+.form-check-label {
+    color: #333; /* Задаємо темний колір для тексту */
+    font-size: 14px; /* Можна налаштувати розмір шрифта */
+    font-weight: normal; /* Нормальний стиль шрифта */
+}
+
+/* Стилі для тексту */
+.remember-text {
+    font-size: 14px;  /* Задаємо розмір шрифту */
+    color: #333;      /* Темний колір тексту */
+    margin-left: 8px; /* Відступ зліва */
+
+}
+
+
+.profile-card {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff6f61;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.email {
+    font-size: 16px;
+    color: #555;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat strong {
+    font-size: 20px;
+    color: #ff6f61;
+}
+
+.stat p {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+}
+
+
+
+/* Респонсивність для мобільних пристроїв */
+@media (max-width: 600px) {
+    header a {
+        font-size: 16px;
+    }
+
+    form {
+        padding: 20px;
+        width: 90%;
+    }
+}
