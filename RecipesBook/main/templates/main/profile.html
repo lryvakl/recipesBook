@@ -26,8 +26,8 @@
         <button class="tab-button" data-tab="favorite-recipes">Favorite Recipes</button>
         <button class="tab-button" data-tab="my-recipes">My Recipes</button>
         <form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit" class="register-btn">Log Out</button>
+        {% csrf_token %}
+        <button type="submit" class="register-btn">Log Out</button>
 </form>
 
 

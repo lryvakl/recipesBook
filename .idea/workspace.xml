@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="працює кнопка add to fav для власних рецептів, не працює для отриманих з api">
+    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="login/logout">
+      <change afterPath="$PROJECT_DIR$/RecipesBook/main/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/RecipesBook/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/RecipesBook/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/services.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/registration/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/views.py" afterDir="false" />
     </list>
@@ -182,7 +177,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732120809425</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="logout">
+      <option name="closed" value="true" />
+      <created>1732216013868</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1732216013868</updated>
+    </task>
+    <task id="LOCAL-00012" summary="login/logout">
+      <option name="closed" value="true" />
+      <created>1732216196364</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732216196364</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,7 +240,9 @@
     <MESSAGE value="виправлення візуальних недоліків" />
     <MESSAGE value="додана сторінка з повними рецептами(допрацювати кнопку add to favorites)" />
     <MESSAGE value="працює кнопка add to fav для власних рецептів, не працює для отриманих з api" />
-    <option name="LAST_COMMIT_MESSAGE" value="працює кнопка add to fav для власних рецептів, не працює для отриманих з api" />
+    <MESSAGE value="logout" />
+    <MESSAGE value="login/logout" />
+    <option name="LAST_COMMIT_MESSAGE" value="login/logout" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/recipesBook$views.coverage" NAME="views Coverage Results" MODIFIED="1730981920564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RecipesBook/main" />

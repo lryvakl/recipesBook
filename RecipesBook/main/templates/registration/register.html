@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+</head>
+
+<body>
+
+<header>
+    <a href="{% url 'mainPage' %}" class="back-btn">Back</a>
+    <h1>What’s for Dinner?</h1>
+</header>
+
+<div class="container">
+    <form method="post" class="register-form">
+        {% csrf_token %}
+        <h1 class="form-title">Register New Account</h1>
+
+        <!-- Username -->
+        <div class="form-floating">
+            <label for="id_username">Username</label>
+            <input type="text" class="form-control" id="id_username" name="username" placeholder="Username" required>
+            {% if form.username.errors %}
+                <p class="error-message">{{ form.username.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Email -->
+        <div class="form-floating">
+            <label for="id_email">Email</label>
+            <input type="email" class="form-control" id="id_email" name="email" placeholder="Email" required>
+            {% if form.email.errors %}
+                <p class="error-message">{{ form.email.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div class="form-floating">
+            <label for="id_password1">Password</label>
+            <input type="password" class="form-control" id="id_password1" name="password1" placeholder="Password" required>
+            {% if form.password1.errors %}
+                <p class="error-message">{{ form.password1.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-floating">
+            <label for="id_password2">Confirm Password</label>
+            <input type="password" class="form-control" id="id_password2" name="password2" placeholder="Confirm Password" required>
+            {% if form.password2.errors %}
+                <p class="error-message">{{ form.password2.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100 py-2">Register</button>
+
+        <!-- Back to Login Link -->
+        <div class="text-center mt-3">
+            <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

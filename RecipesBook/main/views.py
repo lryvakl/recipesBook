@@ -4,6 +4,7 @@ from django.conf import settings
 from django.shortcuts import render
 import csv
 import re
+from django.views.generic import FormView, CreateView
 from .models import Recipe
 from django.shortcuts import redirect
 from fuzzysearch import find_near_matches
@@ -17,8 +18,10 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
-
+from .forms import RegisterForm
+from django.views.generic.edit import FormView
+from django.contrib.auth.models import User
+from django.urls import reverse_lazy
 
 
 
@@ -56,41 +59,6 @@ def login(request):
     return render(request, 'main/login.html')
 
 
-def user_login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('profile')  # Перенаправляємо на профіль користувача
-            else:
-                messages.error(request, 'Invalid username or password')
-        else:
-            messages.error(request, 'Invalid form submission')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'main/login.html', {'form': form})
-
-
-
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Account created successfully')
-            return redirect('login')
-        else:
-            messages.error(request, 'Error during registration')
-    else:
-        form = UserCreationForm()
-    return render(request, 'main/register.html', {'form': form})
-
-
-
 def changePass(request):
     return render(request, 'main/changePass.html')
 
@@ -106,6 +74,16 @@ def profile(request):
         'favorite_recipes': favorite_recipes,
     }
     return render(request, 'main/profile.html', context)
+
+class RegisterView(CreateView):
+    form_class = RegisterForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        # Зберігаємо користувача в базі
+        user = form.save()
+        return super().form_valid(form)
 
 
 
