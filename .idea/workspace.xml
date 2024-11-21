@@ -7,15 +7,13 @@
     <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="працює кнопка add to fav для власних рецептів, не працює для отриманих з api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/RecipesBook/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/RecipesBook/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/services.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/registration/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templatetags/custom_filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templatetags/custom_filters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/views.py" afterDir="false" />
     </list>
@@ -75,11 +73,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/RecipesBook/main/templates/registration" />
       <recent name="$PROJECT_DIR$/RecipesBook/main/templates/main" />
       <recent name="$PROJECT_DIR$/RecipesBook" />
       <recent name="$PROJECT_DIR$/RecipesBook/main/data" />
       <recent name="$PROJECT_DIR$/RecipesBook/main/static" />
-      <recent name="$PROJECT_DIR$/RecipesBook/main/media/media" />
     </key>
   </component>
   <component name="SharedIndexes">
