@@ -4,10 +4,13 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import RegisterView
+from django.contrib.auth.views import LoginView
+from .forms import UsernameOrEmailAuthenticationForm
 
 urlpatterns = [
     path('', views.index, name='mainPage'),
     path('about-us/',views.recipes_view, name='about-us'),
+    path('login/', LoginView.as_view(authentication_form=UsernameOrEmailAuthenticationForm),name='login'),
     path('register/',RegisterView.as_view(), name='register'),
     path('changePass/',views.changePass, name='changePass'),
     path('profile/',views.profile, name='profile'),

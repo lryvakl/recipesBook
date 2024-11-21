@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 from django.conf.global_settings import LOGIN_REDIRECT_URL
 from django.urls import reverse_lazy
 
@@ -105,7 +105,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-import os
+AUTHENTICATION_BACKENDS = [
+    'main.backends.UsernameOrEmailBackend',  # Бекенд для логіну за username або email
+    'django.contrib.auth.backends.ModelBackend',  # Стандартний бекенд
+]
+
+
+
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media/')

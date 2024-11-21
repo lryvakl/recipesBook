@@ -200,6 +200,7 @@ h1 {
     position: relative;
     border-radius: 12px; /* Краще оформлення */
     overflow: hidden;
+    background-image: url('/Users/arturrubachenko/PycharmProjects/recipesBook/RecipesBook/media/media/images.jpeg') ;
 }
 
 .placeholder-img {
