@@ -76,19 +76,26 @@ header .back-btn:hover, header .register-btn:hover {
     margin-top: 40px;
 }
 
-/* Стилі для зображення рецепту */
 .recipe-image {
     flex: 0 0 40%; /* Зображення займає 40% ширини */
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background-size: 170px;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .recipe-image img {
     width: 100%;
-    height: auto;
+    height: 100%;
+
     object-fit: cover;
 }
+
+
+
 
 /* Стилі для текстової частини рецепту */
 .recipe-details {

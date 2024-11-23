@@ -21,14 +21,13 @@
     <div class="container">
         <div class="main-recipe-container">
            <!-- Зображення рецепту -->
-                  <div class="recipe-image">
-                                {% if recipe.image_url %}
-                                        <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" width="200" height="250">
-                                    {% elif recipe.image %}
-                                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" width="200" height="250">
-                                    {% endif %}
-
-                            </div>
+                                <div class="recipe-image">
+                    {% if recipe.image_url %}
+                        <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" class="fixed-size-image">
+                    {% elif recipe.image %}
+                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="fixed-size-image">
+                    {% endif %}
+                </div>
 
 
             <!-- Деталі рецепту -->
