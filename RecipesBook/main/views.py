@@ -34,9 +34,49 @@ def index(request):
 def about(request):
     return render(request,'main/about.html')
 
+
+
 def recipes_view(request):
-    recipes = Recipe.objects.all()  # Отримуємо всі рецепти з бази даних
-    return render(request, 'main/about.html', {'recipes': recipes})
+    query = request.GET.get('q', '').strip()  # Отримуємо пошуковий запит, якщо є
+    results = []
+
+    # Завантаження рецептів з локальної бази даних
+    if query:
+        local_recipes = Recipe.objects.filter(name__icontains=query)
+    else:
+        local_recipes = Recipe.objects.all()
+
+    for recipe in local_recipes:
+        results.append({
+            'id': recipe.id,
+            'name': recipe.name,
+            'ingredients': recipe.ingredients,
+            'instructions': recipe.instructions,
+            'category': recipe.category,
+            'image': recipe.get_image_url(),
+            'link': None,
+        })
+
+    # Завантаження рецептів зі Spoonacular
+    if query:
+        spoonacular_results = get_recipe_by_name(query)  # Пошук за запитом
+    else:
+        spoonacular_results = get_recipe_by_name("")  # Пошук без запиту (всі рецепти або випадкові)
+
+    if 'error' not in spoonacular_results:
+        for recipe in spoonacular_results:
+            results.append({
+                'id': None,
+                'name': recipe['name'],
+                'ingredients': recipe['ingredients'],
+                'instructions': recipe['instructions'],
+                'category': recipe.get('category', 'Unknown'),
+                'image': recipe['image_url'],
+                'link': recipe.get('sourceUrl', '#'),
+            })
+
+    return render(request, 'main/about.html', {'recipes': results})
+
 
 def recipe_detail(request, id):
     # Отримуємо рецепт з бази даних за ID
@@ -66,20 +106,34 @@ def recipe_detail_spoonacular(request, title):
 
                 if detail_response.status_code == 200:
                     recipe = detail_response.json()
-                    return render(request, 'main/recipe_detail.html', {'recipe': recipe})
+
+
+
+                    context = {
+                        'recipe': {
+                            'id': recipe.get('id'),
+                            'name': recipe.get('title', 'No name available'),
+                            'ingredients': recipe.get('extendedIngredients', []),
+                            'instructions': recipe.get('instructions', 'No instructions available'),
+                            'category': recipe.get('dishTypes', ['Unknown'])[0],
+                            'image_url': recipe.get('image', '/static/default_image.jpg')
+
+                        }
+                    }
+                    return render(request, 'main/recipe_detail.html', context)
+
                 else:
-                    # Помилка при отриманні детальної інформації
-                    return render(request,  {
+                    return render(request, 'main/error.html', {
                         'message': f"Failed to fetch recipe details (status {detail_response.status_code})."
                     })
         else:
-            # Якщо результати пошуку порожні
             return render(request, 'main/error.html', {'message': 'Recipe not found in Spoonacular.'})
     else:
-        # Помилка при виконанні пошукового запиту
         return render(request, 'main/error.html', {
             'message': f"Failed to search recipe (status {search_response.status_code})."
         })
+
+
 
 def login(request):
     return render(request, 'main/login.html')
@@ -191,9 +245,6 @@ def search_recipes(request):
             })
 
     return render(request, 'main/about.html', {'recipes': results})
-
-
-
 
 
 def search_ingredients(request):

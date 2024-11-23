@@ -18,7 +18,7 @@ class Recipe(models.Model):
     def get_image_url(self):
         if self.image:
             return self.image.url  # Використовуємо вбудовану властивість .url для коректного шляху
-        return '/static/default_image.jpg'  # Якщо зображення немає, покажемо зображення за замовчуванням
+        return self.name  # Якщо зображення немає, покажемо зображення за замовчуванням
 
     def __str__(self):
         return self.name

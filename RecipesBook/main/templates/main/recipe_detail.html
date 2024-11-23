@@ -21,7 +21,7 @@
     <div class="container">
         <div class="main-recipe-container">
            <!-- Зображення рецепту -->
-                        <div class="recipe-image">
+                  <div class="recipe-image">
                                 {% if recipe.image_url %}
                                         <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" width="200" height="250">
                                     {% elif recipe.image %}
@@ -36,31 +36,41 @@
                 <h1>{{ recipe.name }}</h1>
                 <p class="category">Category: {{ recipe.category }}</p>
 
-                <!-- Інгредієнти -->
-                <div class="ingredients">
-                    <h3>Ingredients:</h3>
-                    {% if recipe.ingredients %}
-                        <ul>
-                            {% for ingredient in recipe.ingredients|split:"," %}
+               <!-- Інгредієнти -->
+                        <div class="ingredients">
+                            <h3>Ingredients:</h3>
+                            {% if recipe.ingredients %}
+                                <ul>
+                                    {% if recipe.ingredients.0.original %}
+                                        {% for ingredient in recipe.ingredients %}
+                                            <li>{{ ingredient.original }}</li>
+                                        {% endfor %}
+                                    {% else %}
+                                      {% for ingredient in recipe.ingredients|split:"," %}
                                 <li>{{ ingredient }}</li>
                             {% endfor %}
-                        </ul>
-                    {% else %}
-                        <p>No ingredients available.</p>
-                    {% endif %}
-                </div>
+                                    {% endif %}
+                                </ul>
+                            {% else %}
+                                <p>No ingredients available.</p>
+                            {% endif %}
+                        </div>
+
+
+
 
                 <!-- Інструкції -->
-                <div class="instructions">
+                              <div class="instructions">
                     <h3>Instructions:</h3>
                     {% if recipe.instructions %}
-                        <p>{{ recipe.instructions }}</p>
+                        <div>{{ recipe.instructions|safe }}</div>
                     {% else %}
                         <p>No instructions available.</p>
                     {% endif %}
                 </div>
 
-                <!-- Кнопка додавання до улюблених -->
+
+                 <!-- Кнопка додавання до улюблених -->
              <div class="add-favorite">
     <form method="POST"
           action="{% if recipe.title %}
@@ -72,6 +82,7 @@
         <button type="submit" class="favorite-btn">Add to Favorite Recipes</button>
     </form>
 </div>
+
 
 
 

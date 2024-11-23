@@ -28,32 +28,36 @@
         <div class="card-container">
             {% for recipe in recipes %}
                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-text">
-                            <strong class="category">{{ recipe.category }}</strong>
-                            <h3 class="title">{{ recipe.name }}</h3>
-                            <p class="ingredients">{{ recipe.ingredients }}</p>
-                            <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
-                            <div class="recipe-card-footer">
-                                {% if recipe.id %}
-                                   <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
-                                {% else %}
-                                <a href="{% url 'recipe_detail_spoonacular' recipe.name %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
-                                {% endif %}
+                        <div class="card-content">
+                            <div class="card-text">
+                                <strong class="category">{{ recipe.category }}</strong>
+                                <h3 class="title">{{ recipe.name }}</h3>
+                                <p class="ingredients"><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+                              <p class="description"><strong>Instructions:</strong>
+                                        {% if recipe.instructions %}
+                                            {% if recipe.instructions|length > 100 %}
+                                                {{ recipe.instructions|truncatewords:20|safe }}
+                                            {% else %}
+                                                {{ recipe.instructions|truncatewords:20 }}
+                                            {% endif %}
+                                        {% else %}
+                                            No instructions available.
+                                        {% endif %}
+                                    </p>
+                                <div class="recipe-card-footer">
+                                   {% if recipe.id %}
+                           <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+                        {% else %}
+                        <a href="{% url 'recipe_detail_spoonacular' recipe.name %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+
+                        {% endif %}
+                                </div>
+                            </div>
+                            <div class="image">
+                                <img src="{{ recipe.image|default:'default-image-url.png' }}" alt="{{ recipe.name }}" width="200" height="250">
                             </div>
                         </div>
-
-                       <div class="image">
-                                {% if recipe.image %}
-                                    <img src="{{ recipe.get_image_url }}" alt="{{ recipe.name }}" width="200" height="250">
-                                {% elif recipe.image_url %}
-                                    <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" width="200" height="250">
-
-                                {% endif %}
-                        </div>
-
                     </div>
-                </div>
             {% endfor %}
         </div>
     </div>
