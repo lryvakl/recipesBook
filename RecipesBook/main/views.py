@@ -327,43 +327,66 @@ def remove_from_favorites(request, id):
 
 @login_required
 def add_to_favorites_spoonacular(request, title):
-    # Отримуємо дані рецепту з Spoonacular за назвою
-    url = f"https://api.spoonacular.com/recipes/complexSearch"
-    response = requests.get(url, params={'query': title, 'apiKey': settings.SPOONACULAR_API_KEY, 'number': 1})
+    # Формуємо запит до Spoonacular API
+    url = "https://api.spoonacular.com/recipes/complexSearch"
+    params = {
+        'query': title,
+        'apiKey': settings.SPOONACULAR_API_KEY,
+        'number': 1,
+    }
+    response = requests.get(url, params=params)
 
     if response.status_code == 200:
         results = response.json().get('results', [])
-        if results:
-            recipe_data = results[0]
+        if results:  # Якщо знайдено хоча б один рецепт
+            recipe_id = results[0].get('id')
+            if recipe_id:
+                # Отримання детальної інформації про рецепт
+                detail_url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
+                detail_response = requests.get(detail_url, params={'apiKey': settings.SPOONACULAR_API_KEY})
 
-            # Знаходимо або створюємо користувача "Spoonacular"
-            spoonacular_user, created = User.objects.get_or_create(
-                username='spoonacular',
-                defaults={'email': 'spoonacular@example.com'}
-            )
+                if detail_response.status_code == 200:
+                    recipe = detail_response.json()
 
-            # Створюємо або знаходимо рецепт у базі
-            recipe, created = Recipe.objects.get_or_create(
-                name=recipe_data.get('title', 'No Title'),
-                defaults={  # Використовуємо defaults для інших полів
-                    'ingredients': ', '.join(
-                        [i['original'] for i in recipe_data.get('extendedIngredients', [])]) if recipe_data.get(
-                        'extendedIngredients') else 'No ingredients',
-                    'instructions': recipe_data.get('instructions', 'No instructions available'),
-                    'category': recipe_data.get('dishTypes', ['Uncategorized'])[0],  # Категорія
-                    'image_url': recipe_data.get('image', ''),  # Картинка
-                    'author': spoonacular_user  # Встановлюємо автора за замовчуванням
-                }
-            )
+            if detail_response.status_code == 200:
+                detail_data = detail_response.json()
 
-            # Додаємо рецепт до улюблених поточного користувача
-            recipe.favorite_by_users.add(request.user)
+                # Створюємо або знаходимо користувача "Spoonacular"
+                spoonacular_user, created = User.objects.get_or_create(
+                    username='spoonacular',
+                    defaults={'email': 'spoonacular@example.com'}
+                )
 
-            # Перенаправляємо на сторінку рецепту
-            return redirect('recipe_detail', recipe.id)
+                # Отримуємо дані для рецепта
+                name = detail_data.get('title', 'No Title')
+                ingredients = ', '.join(
+                    [i['original'] for i in detail_data.get('extendedIngredients', [])]
+                ) if detail_data.get('extendedIngredients') else 'No ingredients'
+                instructions = detail_data.get('instructions', 'No instructions available')
+                category = detail_data.get('dishTypes', ['Uncategorized'])[0]
+                image_url = detail_data.get('image', '')
 
-    # Якщо не знайдено рецепт
+                # Створюємо або знаходимо рецепт у базі
+                recipe, created = Recipe.objects.get_or_create(
+                    name=name,
+                    defaults={
+                        'ingredients': ingredients,
+                        'instructions': instructions,
+                        'category': category,
+                        'image_url': image_url,
+                        'author': spoonacular_user,
+                    }
+                )
+
+                # Додаємо рецепт до улюблених поточного користувача
+                recipe.favorite_by_users.add(request.user)
+
+                # Перенаправляємо на сторінку рецепта
+                return redirect('recipe_detail', recipe.id)
+
+    # Якщо рецепт не знайдено
     return render(request, 'error.html', {'message': 'Recipe not found.'})
+
 
 
 @login_required

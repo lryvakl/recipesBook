@@ -73,8 +73,8 @@
                  <!-- Кнопка додавання до улюблених -->
              <div class="add-favorite">
     <form method="POST"
-          action="{% if recipe.title %}
-                    {% url 'add_to_favorites_spoonacular' recipe.title %}
+          action="{% if recipe.name %}
+                    {% url 'add_to_favorites_spoonacular' recipe.name %}
                  {% else %}
                     {% url 'add_to_favorites' recipe.id %}
                  {% endif %}">

@@ -67,7 +67,17 @@
                                 <strong class="category">{{ recipe.category }}</strong>
                                 <h3 class="title">{{ recipe.name }}</h3>
                                 <p class="ingredients">{{ recipe.ingredients }}</p>
-                                <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
+                                <p class="description"><strong>Instructions:</strong>
+                                        {% if recipe.instructions %}
+                                            {% if recipe.instructions|length > 100 %}
+                                                {{ recipe.instructions|truncatewords:20|safe }}
+                                            {% else %}
+                                                {{ recipe.instructions|truncatewords:20 }}
+                                            {% endif %}
+                                        {% else %}
+                                            No instructions available.
+                                        {% endif %}
+                                    </p>
                                 <div class="recipe-card-footer">
                                     <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">
                                         View Full Recipe <span class="icon">→</span>
@@ -107,7 +117,17 @@
                             <strong class="category">{{ recipe.category }}</strong>
                             <h3 class="title">{{ recipe.name }}</h3>
                             <p class="ingredients">{{ recipe.ingredients }}</p>
-                            <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
+                            <p class="description"><strong>Instructions:</strong>
+                                        {% if recipe.instructions %}
+                                            {% if recipe.instructions|length > 100 %}
+                                                {{ recipe.instructions|truncatewords:20|safe }}
+                                            {% else %}
+                                                {{ recipe.instructions|truncatewords:20 }}
+                                            {% endif %}
+                                        {% else %}
+                                            No instructions available.
+                                        {% endif %}
+                                    </p>
                             <div class="recipe-card-footer">
                                 <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">
                                     View Full Recipe <span class="icon">→</span>
