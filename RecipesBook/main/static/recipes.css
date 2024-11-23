@@ -195,11 +195,16 @@ h1 {
 
 /* Покращення стилю для зображень */
 .image {
-    display: none; /* Сховане зображення за замовчуванням */
-    flex: 0 0 200px;
+       flex: 0 0 200px;
     position: relative;
-    border-radius: 12px; /* Краще оформлення */
+    border-radius: 12px;
     overflow: hidden;
+    width: 200px;
+    height: 250px;
+    background-size: 170px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/media/54828.png');
 }
 
 .placeholder-img {

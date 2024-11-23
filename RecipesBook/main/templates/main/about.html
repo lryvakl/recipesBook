@@ -26,40 +26,41 @@
         </div>
 
         <div class="card-container">
-    {% for recipe in recipes %}
-        <div class="card">
-            <div class="card-content">
-                <div class="card-text">
-                    <strong class="category">{{ recipe.category }}</strong>
-                    <h3 class="title">{{ recipe.name }}</h3>
-                    <p class="ingredients">{{ recipe.ingredients }}</p>
-                    <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
-                    <div class="recipe-card-footer">
-                        {% if recipe.id %}
-                           <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
-                        {% else %}
-                        <a href="{% url 'recipe_detail_spoonacular' recipe.name %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+            {% for recipe in recipes %}
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <strong class="category">{{ recipe.category }}</strong>
+                            <h3 class="title">{{ recipe.name }}</h3>
+                            <p class="ingredients">{{ recipe.ingredients }}</p>
+                            <p class="description">{{ recipe.instructions|truncatewords:20 }}</p>
+                            <div class="recipe-card-footer">
+                                {% if recipe.id %}
+                                   <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+                                {% else %}
+                                <a href="{% url 'recipe_detail_spoonacular' recipe.name %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+                                {% endif %}
+                            </div>
+                        </div>
 
-                        {% endif %}
+                       <div class="image">
+                                {% if recipe.image %}
+                                    <img src="{{ recipe.get_image_url }}" alt="{{ recipe.name }}" width="200" height="250">
+                                {% elif recipe.image_url %}
+                                    <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" width="200" height="250">
+
+                                {% endif %}
+                        </div>
+
                     </div>
                 </div>
-                 <div class="image">
-                    {% if recipe.image %}
-                        <img src="{{ recipe.image }}" alt="{{ recipe.name }}" width="200" height="250">
-                    {% endif %}
-                </div>
-            </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-</div>
-
-
-
     </div>
 
-<button class="add-recipe-btn" onclick="window.location.href='addRecipe'">
-    <i class="fas fa-plus"></i> Add Recipe
-</button>
+            <button class="add-recipe-btn" onclick="window.location.href='{% url 'add_recipe' %}'">
+                <i class="fas fa-plus"></i> Add Recipe
+            </button>
 
 </body>
 </html>

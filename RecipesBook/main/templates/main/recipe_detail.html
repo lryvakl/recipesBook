@@ -21,9 +21,14 @@
     <div class="container">
         <div class="main-recipe-container">
            <!-- Зображення рецепту -->
-            <div class="recipe-image">
-                <img src="{% if recipe.get_image_url %}{{ recipe.get_image_url }}{% else %}{{ recipe.image }}{% endif %}" alt="{{ recipe.name }}">
-            </div>
+                        <div class="recipe-image">
+                                {% if recipe.image_url %}
+                                        <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" width="200" height="250">
+                                    {% elif recipe.image %}
+                                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" width="200" height="250">
+                                    {% endif %}
+
+                            </div>
 
 
             <!-- Деталі рецепту -->

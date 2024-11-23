@@ -149,7 +149,6 @@ def add_recipe(request):
     return render(request, 'main/addRecipe.html')
 
 
-
 def search_recipes(request):
     query = request.GET.get('q', '').strip()  # Отримуємо параметр пошуку
     results = []
@@ -169,7 +168,7 @@ def search_recipes(request):
             'ingredients': recipe.ingredients,
             'instructions': recipe.instructions,
             'category': recipe.category,
-            'image': recipe.get_image_url,
+            'image': recipe.get_image_url(),  # Викликаємо метод для отримання реального URL
             'link': None,  # Локальні рецепти не мають зовнішнього посилання
         })
 
@@ -187,11 +186,14 @@ def search_recipes(request):
                 'ingredients': recipe['ingredients'],
                 'instructions': recipe['instructions'],
                 'category': recipe.get('category', 'Unknown'),
-                'image': recipe['image_url'],
+                'image': recipe['image_url'],  # URL зображення для рецептів з Spoonacular
                 'link': recipe.get('sourceUrl', '#'),  # Додаємо посилання на Spoonacular
             })
 
     return render(request, 'main/about.html', {'recipes': results})
+
+
+
 
 
 def search_ingredients(request):
@@ -298,7 +300,7 @@ def add_to_favorites_spoonacular(request, title):
                         'extendedIngredients') else 'No ingredients',
                     'instructions': recipe_data.get('instructions', 'No instructions available'),
                     'category': recipe_data.get('dishTypes', ['Uncategorized'])[0],  # Категорія
-                    'image': recipe_data.get('image', ''),  # Картинка
+                    'image_url': recipe_data.get('image', ''),  # Картинка
                     'author': spoonacular_user  # Встановлюємо автора за замовчуванням
                 }
             )
