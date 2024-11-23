@@ -238,7 +238,7 @@ def search_ingredients(request):
                     })
 
     return render(request, 'main/index.html', {'results': results, 'query': query})
-
+#modern
 
 def add_to_favorites(request, id):
     # Отримуємо рецепт за ID
