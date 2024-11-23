@@ -11,6 +11,9 @@ class Recipe(models.Model):
     category = models.CharField('category',max_length=50)
     image = models.ImageField('Image', upload_to='media/', blank=True, null=True)
     favorite_by_users = models.ManyToManyField(User, related_name='favorite_recipes', blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
     def get_image_url(self):
         # Перевіряємо, чи має файл розширення

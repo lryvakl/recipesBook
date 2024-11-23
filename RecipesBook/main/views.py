@@ -92,11 +92,16 @@ def changePass(request):
 @login_required
 def profile(request):
 
+    user = request.user
+    # Отримати рецепти, які створив користувач
+    my_recipes = Recipe.objects.filter(author=user)
     # Отримуємо всі улюблені рецепти поточного користувача
     favorite_recipes = request.user.favorite_recipes.all()  # related_name='favorite_recipes'
 
     # Передаємо список улюблених рецептів у контекст
     context = {
+        'user': user,
+        'my_recipes': my_recipes,
         'favorite_recipes': favorite_recipes,
     }
     return render(request, 'main/profile.html', context)
@@ -120,22 +125,23 @@ def addRecipe(request):
 
 
 
+@login_required
 def add_recipe(request):
     if request.method == "POST":
-
         name = request.POST.get('name')
         ingredients = request.POST.get('ingredients')
         instructions = request.POST.get('instructions')
         category = request.POST.get('category')
         image = request.FILES.get('image')
 
-        # Створення нового рецепту в базі даних
+        # Створення нового рецепту в базі даних із вказаним автором
         new_recipe = Recipe.objects.create(
             name=name,
             ingredients=ingredients,
             instructions=instructions,
             category=category,
-            image = image
+            image=image,
+            author=request.user  # Додаємо автора
         )
 
         return redirect('about-us')
@@ -238,8 +244,9 @@ def search_ingredients(request):
                     })
 
     return render(request, 'main/index.html', {'results': results, 'query': query})
-#modern
 
+
+@login_required
 def add_to_favorites(request, id):
     # Отримуємо рецепт за ID
     recipe = get_object_or_404(Recipe, id=id)
@@ -254,10 +261,6 @@ def add_to_favorites(request, id):
 
 
 
-@login_required
-
-
-
 def remove_from_favorites(request, id):
     # Отримуємо рецепт за ID
     recipe = get_object_or_404(Recipe, id=id)
@@ -269,7 +272,7 @@ def remove_from_favorites(request, id):
     return redirect('profile')
 
 
-
+@login_required
 def add_to_favorites_spoonacular(request, title):
     # Отримуємо дані рецепту з Spoonacular за назвою
     url = f"https://api.spoonacular.com/recipes/complexSearch"
@@ -279,6 +282,12 @@ def add_to_favorites_spoonacular(request, title):
         results = response.json().get('results', [])
         if results:
             recipe_data = results[0]
+
+            # Знаходимо або створюємо користувача "Spoonacular"
+            spoonacular_user, created = User.objects.get_or_create(
+                username='spoonacular',
+                defaults={'email': 'spoonacular@example.com'}
+            )
 
             # Створюємо або знаходимо рецепт у базі
             recipe, created = Recipe.objects.get_or_create(
@@ -290,10 +299,11 @@ def add_to_favorites_spoonacular(request, title):
                     'instructions': recipe_data.get('instructions', 'No instructions available'),
                     'category': recipe_data.get('dishTypes', ['Uncategorized'])[0],  # Категорія
                     'image': recipe_data.get('image', ''),  # Картинка
+                    'author': spoonacular_user  # Встановлюємо автора за замовчуванням
                 }
             )
 
-            # Додаємо рецепт до улюблених
+            # Додаємо рецепт до улюблених поточного користувача
             recipe.favorite_by_users.add(request.user)
 
             # Перенаправляємо на сторінку рецепту
@@ -303,3 +313,8 @@ def add_to_favorites_spoonacular(request, title):
     return render(request, 'error.html', {'message': 'Recipe not found.'})
 
 
+@login_required
+def delete_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id, author=request.user)
+    recipe.delete()
+    return redirect('profile')

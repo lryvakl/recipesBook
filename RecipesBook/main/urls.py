@@ -25,6 +25,7 @@ urlpatterns = [
     path('add_to_favorites_spoonacular/<slug:slug>/', views.add_to_favorites_spoonacular,name='add_to_favorites_spoonacular'),
     path('remove_from_favorites/<int:id>/', views.remove_from_favorites, name='remove_from_favorites'),
     path('add-to-favorites-spoonacular/<str:title>/', views.add_to_favorites_spoonacular, name='add_to_favorites_spoonacular'),
+    path('delete-recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

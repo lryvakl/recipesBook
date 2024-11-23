@@ -59,7 +59,7 @@ def get_recipe_by_name(name, number=5):
 
         return recipes
 
-    # Обробка інших статусів0
+    # Обробка інших статусів
     if search_response.status_code == 403:
         logger.error("Access forbidden. Check your API key.")
         return {'error': 'Access forbidden. Check your API key.'}
