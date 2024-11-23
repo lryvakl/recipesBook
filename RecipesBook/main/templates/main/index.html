@@ -2,73 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main page</title>
     {% load static %}
-   <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 <body>
 
 <header>
-    <a href='about-us' class="back-btn">Recipes</a>
+    <a href="{% url 'about-us' %}" class="back-btn">Recipes</a>
     <h1>What’s for Dinner?</h1>
-     <a href="{% url 'profile' %}" class="back-btn">My Profile</a>
-
-
+    <a href="{% url 'profile' %}" class="back-btn">My Profile</a>
 </header>
 
-
- <div class="centered-container">
-        <h4>What's in your fridge?</h4>
-    </div>
+<div class="centered-container">
+    <h4>What's in your fridge?</h4>
+</div>
 
 <div class="container">
-<form class="search-container" action="{% url 'search_ingredients' %}" method="GET">
-    <input class="search-input" type="search" name="q" placeholder="Ingredients" aria-label="Ingredients">
-    <button class="search-button" type="submit"><i class="fas fa-search"></i></button>
-</form>
-{% if query %}
+    <form class="search-container" action="{% url 'search_ingredients' %}" method="GET">
+        <input class="search-input" type="search" name="q" placeholder="Ingredients" aria-label="Ingredients" required>
+        <button class="search-button" type="submit"><i class="fas fa-search"></i></button>
+    </form>
 
-    <div class="card-container">
-        {% if results %}
-           {% for recipe in results %}
-<div class="card">
-    <div class="card-content">
-        <div class="card-text">
-            <strong class="category">{{ recipe.category }}</strong>
-            <h3 class="title">{{ recipe.name }}</h3>
-            <p class="ingredients"><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
-            <p class="description"><strong>Instructions:</strong> {{ recipe.instructions|truncatewords:20 }}</p>
-            <div class="recipe-card-footer">
-                {% if recipe.id %}
-                    <a href="/recipe-detail/{{ recipe.id }}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
-                {% else %}
-                    <a href="#" class="view-recipe-btn">External Recipe</a>
-                {% endif %}
-            </div>
-            </div>
-            <div class="image">
-                {% if recipe.image %}
-                    <img src="{{ recipe.image }}" alt="{{ recipe.name }}" width="200" height="250">
-                {% endif %}
-            </div>
-    </div>
-</div>
-{% endfor %}
+    {% if query %}
+        <div class="card-container">
+            {% if results %}
+                {% for recipe in results %}
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-text">
+                                <strong class="category">{{ recipe.category }}</strong>
+                                <h3 class="title">{{ recipe.name }}</h3>
+                                <p class="ingredients"><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+                                <p class="description"><strong>Instructions:</strong> {{ recipe.instructions|truncatewords:20 }}</p>
+                                <div class="recipe-card-footer">
+                                   {% if recipe.id %}
+                           <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
+                        {% else %}
+                        <a href="{% url 'recipe_detail_spoonacular' recipe.name %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
 
-        {% else %}
-            <p>No recipes found.</p>
-        {% endif %}
-    </div>
-{% endif %}
-
+                        {% endif %}
+                                </div>
+                            </div>
+                            <div class="image">
+                                <img src="{{ recipe.image|default:'default-image-url.png' }}" alt="{{ recipe.name }}" width="200" height="250">
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No recipes found.</p>
+            {% endif %}
+        </div>
+    {% endif %}
 </div>
 
-<button class="add-recipe-btn" onclick="window.location.href='addRecipe'">
+<button class="add-recipe-btn" onclick="window.location.href='{% url 'addRecipe' %}'">
     <i class="fas fa-plus"></i> Add Recipe
 </button>
 

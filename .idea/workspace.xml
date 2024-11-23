@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="login with email">
-      <change afterPath="$PROJECT_DIR$/RecipesBook/main/backends.py" afterDir="false" />
+    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="a little bit changes">
+      <change afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/staticfiles/recipes.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/staticfiles/recipes.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/services.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +23,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -211,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732225359548</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="a little bit changes">
+      <option name="closed" value="true" />
+      <created>1732225836253</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732225836253</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -262,7 +270,8 @@
     <MESSAGE value="login/logout" />
     <MESSAGE value="login/logout/register" />
     <MESSAGE value="login with email" />
-    <option name="LAST_COMMIT_MESSAGE" value="login with email" />
+    <MESSAGE value="a little bit changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="a little bit changes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/recipesBook$views.coverage" NAME="views Coverage Results" MODIFIED="1730981920564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RecipesBook/main" />

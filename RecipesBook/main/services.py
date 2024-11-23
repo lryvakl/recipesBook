@@ -1,5 +1,8 @@
 import requests
 from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 BASE_URL = 'https://api.spoonacular.com/recipes'
 
@@ -22,7 +25,6 @@ def get_recipe_by_name(name, number=5):
 
         for result in results:
             id = result.get('id')
-
             name = result.get('title', 'No Title')
             image_url = result.get('image', 'No image')
 
@@ -36,15 +38,34 @@ def get_recipe_by_name(name, number=5):
                     recipes.append({
                         'id': recipe.get('id'),
                         'name': recipe.get('title', name),
-                        'ingredients': ', '.join([i['original'] for i in recipe.get('extendedIngredients', [])]),
+                        'ingredients': ', '.join([i.get('original', 'Unknown ingredient') for i in recipe.get('extendedIngredients', [])]),
                         'instructions': recipe.get('instructions', 'No instructions available'),
-                        'category': recipe.get('dishTypes', ['Uncategorized'])[0],
+                        'category': recipe.get('dishTypes', ['Uncategorized'])[0] if recipe.get('dishTypes') else 'Uncategorized',
                         'image_url': recipe.get('image', image_url),
                         'sourceUrl': recipe.get('sourceUrl', '#'),
                     })
-                    print("Recipe ID:", recipe)
+                    logger.info(f"Fetched recipe ID: {recipe.get('id')}")
+                else:
+                    logger.error(f"Failed to fetch details for recipe ID: {id}, Status code: {detail_response.status_code}")
+                    recipes.append({
+                        'id': id,
+                        'name': name,
+                        'ingredients': 'Unable to fetch ingredients.',
+                        'instructions': 'Unable to fetch instructions.',
+                        'category': 'Uncategorized',
+                        'image_url': image_url,
+                        'sourceUrl': '#',
+                    })
 
         return recipes
 
-    # Якщо щось пішло не так
-    return {'error': search_response.json()}
+    # Обробка інших статусів
+    if search_response.status_code == 403:
+        logger.error("Access forbidden. Check your API key.")
+        return {'error': 'Access forbidden. Check your API key.'}
+    elif search_response.status_code == 429:
+        logger.warning("Rate limit exceeded. Please wait before making more requests.")
+        return {'error': 'Rate limit exceeded. Please wait before making more requests.'}
+    else:
+        logger.error(f"Unexpected error: {search_response.status_code}")
+        return {'error': search_response.json()}
