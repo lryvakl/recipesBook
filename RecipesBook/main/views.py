@@ -37,39 +37,30 @@ def about(request):
 
 
 def recipes_view(request):
-    query = request.GET.get('q', '').strip()  # Отримуємо пошуковий запит, якщо є
+    query = request.GET.get('q', '').strip()
     results = []
 
     # Завантаження рецептів зі Spoonacular
-    if query:
-        spoonacular_results = get_recipe_by_name(query)  # Пошук за запитом
-    else:
-        spoonacular_results = get_recipe_by_name("")  # Пошук без запиту (всі рецепти або випадкові)
+    spoonacular_results = get_recipe_by_name(query if query else "")
+    spoonacular_recipe_names = set()
 
-    # Якщо результати Spoonacular є, додаємо їх до results
-    spoonacular_recipe_names = set()  # Множина назв рецептів зі Spoonacular для перевірки дублювання
     if 'error' not in spoonacular_results:
         for recipe in spoonacular_results:
             results.append({
-                'id': None,
-                'name': recipe['name'],
+
+                'name': recipe.get('name'),
                 'ingredients': recipe['ingredients'],
                 'instructions': recipe['instructions'],
                 'category': recipe.get('category', 'Unknown'),
                 'image': recipe['image_url'],
                 'link': recipe.get('sourceUrl', '#'),
             })
-            spoonacular_recipe_names.add(recipe['name'].lower())  # Додаємо назву рецепта до множини
+            spoonacular_recipe_names.add(recipe['name'].lower())
 
-    # Завантаження рецептів з локальної бази даних
-    if query:
-        local_recipes = Recipe.objects.filter(name__icontains=query)
-    else:
-        local_recipes = Recipe.objects.all()
-
+    # Завантаження рецептів з локальної бази
+    local_recipes = Recipe.objects.filter(name__icontains=query) if query else Recipe.objects.all()
     for recipe in local_recipes:
-        # Перевірка, чи є рецепт з такою ж назвою у Spoonacular
-        if recipe.name.lower() not in spoonacular_recipe_names:  # Якщо такого рецепта з бази немає в Spoonacular
+        if recipe.name.lower() not in spoonacular_recipe_names:
             results.append({
                 'id': recipe.id,
                 'name': recipe.name,
@@ -81,7 +72,6 @@ def recipes_view(request):
             })
 
     return render(request, 'main/about.html', {'recipes': results})
-
 
 
 
@@ -123,7 +113,6 @@ def recipe_detail_spoonacular(request, title):
 
                     context = {
                         'recipe': {
-                            'id': recipe.get('id'),
                             'name': recipe.get('title', 'No name available'),
                             'ingredients': recipe.get('extendedIngredients', []),
                             'instructions': recipe.get('instructions', 'No instructions available'),
@@ -409,7 +398,7 @@ def add_to_favorites_spoonacular(request, title):
                 return redirect('recipe_detail', recipe.id)
 
     # Якщо рецепт не знайдено
-    return render(request, 'error.html', {'message': 'Recipe not found.'})
+    return render(request, 'main/error.html', {'message': 'Recipe not found.'})
 
 
 

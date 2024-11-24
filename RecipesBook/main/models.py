@@ -16,9 +16,12 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def get_image_url(self):
-        if self.image:
-            return self.image.url  # Використовуємо вбудовану властивість .url для коректного шляху
-        return self.name  # Якщо зображення немає, покажемо зображення за замовчуванням
+        if self.image:  # Якщо локальне зображення існує
+            return self.image.url
+        elif self.image_url:  # Якщо є зовнішній URL
+            return self.image_url
+        # Якщо нічого немає, повертаємо шлях до зображення за замовчуванням
+
 
     def __str__(self):
         return self.name

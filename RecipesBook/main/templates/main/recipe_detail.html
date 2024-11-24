@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,18 +72,19 @@
 
 
                              <!-- Кнопка додавання до улюблених -->
-                         <div class="add-favorite">
+                                     <div class="add-favorite">
                 <form method="POST"
-                      action="{% if recipe.name %}
-                                {% url 'add_to_favorites_spoonacular' recipe.name %}
-                             {% else %}
-                                {% url 'add_to_favorites' recipe.id %}
-                             {% endif %}">
+                      action="{% if recipe.id %}
+                                  {% url 'add_to_favorites' recipe.id %}
+                              {% else %}
+                                  {% url 'add_to_favorites_spoonacular' recipe.name %}
+                              {% endif %}">
                     {% csrf_token %}
-                    <button type="submit" class="favorite-btn">Add to Favorite Recipes</button>
+                    <button type="submit" class="favorite-btn">
+                        <i class="fas fa-heart"></i> Add to Favorite Recipes
+                    </button>
                 </form>
             </div>
-
 
 
 

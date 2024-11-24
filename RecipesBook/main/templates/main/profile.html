@@ -35,26 +35,28 @@
 
     <!-- Tab Contents -->
     <div id="my-profile" class="tab-content active">
-        <div>
-         {% if user.profile.photo %}
-                <img src="{{ user.profile.photo.url }}" alt="Profile Picture" class="profile-picture">
-            {% else %}
-                <img src="{% static 'default-profile.png' %}" alt="Default Profile Picture" class="profile-picture">
-            {% endif %}
-            <h2 class="username">{{ user.username }}</h2>
-            <p class="email">{{ user.email }}</p>
+    <div class="profile-header">
+
+            <img src="{{ user.profile.photo.url }}" alt="" class="profile-picture">
+
+        <h2 class="username">{{ user.username }}</h2>
+        <p class="email">{{ user.email }}</p>
+    </div>
+
+    <div class="profile-stats">
+        <div class="stat">
+            <i class="fas fa-book"></i>
+            <strong>{{ user.recipes.count }}</strong>
+            <p>My Recipes</p>
         </div>
-        <div class="profile-stats">
-            <div class="stat">
-                <strong>{{ user.recipes.count }}</strong>
-                <p>My Recipes</p>
-            </div>
-            <div class="stat">
-                <strong>{{ favorite_recipes.count }}</strong>
-                <p>Favorites</p>
-            </div>
+        <div class="stat">
+            <i class="fas fa-heart"></i>
+            <strong>{{ favorite_recipes.count }}</strong>
+            <p>Favorites</p>
         </div>
     </div>
+</div>
+
 
    <div id="favorite-recipes" class="tab-content">
         <h3>Favorite Recipes</h3>
