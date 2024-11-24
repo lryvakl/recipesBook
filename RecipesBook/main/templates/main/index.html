@@ -37,6 +37,7 @@
                                 <strong class="category">{{ recipe.category }}</strong>
                                 <h3 class="title">{{ recipe.name }}</h3>
                                 <p class="ingredients"><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+                                <p class="miss-ingredients"><strong>Missed Ingredients:</strong> {{ recipe.missed_ingredients|join:", " }}</p>
                                 <p class="description"><strong>Instructions:</strong> {{ recipe.instructions|truncatewords:20 }}</p>
                                 <div class="recipe-card-footer">
                                    {% if recipe.id %}

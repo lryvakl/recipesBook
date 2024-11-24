@@ -69,18 +69,18 @@
                 </div>
 
 
-                 <!-- Кнопка додавання до улюблених -->
-             <div class="add-favorite">
-    <form method="POST"
-          action="{% if recipe.name %}
-                    {% url 'add_to_favorites_spoonacular' recipe.name %}
-                 {% else %}
-                    {% url 'add_to_favorites' recipe.id %}
-                 {% endif %}">
-        {% csrf_token %}
-        <button type="submit" class="favorite-btn">Add to Favorite Recipes</button>
-    </form>
-</div>
+                             <!-- Кнопка додавання до улюблених -->
+                         <div class="add-favorite">
+                <form method="POST"
+                      action="{% if recipe.name %}
+                                {% url 'add_to_favorites_spoonacular' recipe.name %}
+                             {% else %}
+                                {% url 'add_to_favorites' recipe.id %}
+                             {% endif %}">
+                    {% csrf_token %}
+                    <button type="submit" class="favorite-btn">Add to Favorite Recipes</button>
+                </form>
+            </div>
 
 
 

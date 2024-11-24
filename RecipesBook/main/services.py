@@ -56,6 +56,7 @@ def get_recipe_by_name(name, number=5):
                         'image_url': image_url,
                         'sourceUrl': '#',
                     })
+        print(f"Searching recipes with query: {name}")
 
         return recipes
 

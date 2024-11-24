@@ -7,8 +7,13 @@
     <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="полагоджено add to favorite для api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/recipeDetail.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/recipeDetail.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/services.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/static/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/templates/main/recipe_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

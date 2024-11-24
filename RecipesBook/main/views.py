@@ -23,7 +23,7 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from fuzzywuzzy import fuzz
-
+from operator import itemgetter
 
 
 def index(request):
@@ -84,6 +84,9 @@ def recipe_detail(request, id):
     return render(request, 'main/recipe_detail.html', {'recipe': recipe})
 
 
+from django.shortcuts import redirect
+
+
 def recipe_detail_spoonacular(request, title):
     # Пошук рецепта за назвою
     search_url = "https://api.spoonacular.com/recipes/complexSearch"
@@ -99,6 +102,7 @@ def recipe_detail_spoonacular(request, title):
         results = search_response.json().get('results', [])
         if results:  # Якщо знайдено хоча б один рецепт
             recipe_id = results[0].get('id')
+            source_url = results[0].get('sourceUrl', '#')
             if recipe_id:
                 # Отримання детальної інформації про рецепт
                 detail_url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
@@ -116,22 +120,19 @@ def recipe_detail_spoonacular(request, title):
                             'ingredients': recipe.get('extendedIngredients', []),
                             'instructions': recipe.get('instructions', 'No instructions available'),
                             'category': recipe.get('dishTypes', ['Unknown'])[0],
-                            'image_url': recipe.get('image', '/static/default_image.jpg')
+                            'image_url': recipe.get('image', '/static/default_image.jpg'),
+                            'source_url': recipe.get('sourceUrl', '#')  # Додано джерело
 
                         }
                     }
                     return render(request, 'main/recipe_detail.html', context)
 
-                else:
-                    return render(request, 'main/error.html', {
-                        'message': f"Failed to fetch recipe details (status {detail_response.status_code})."
-                    })
-        else:
-            return render(request, 'main/error.html', {'message': 'Recipe not found in Spoonacular.'})
-    else:
-        return render(request, 'main/error.html', {
-            'message': f"Failed to search recipe (status {search_response.status_code})."
-        })
+                elif source_url and source_url != '#':
+                    return redirect(source_url)
+
+ # Якщо рецепт не знайдено в Spoonacular
+    return render(request, 'main/recipe_detail.html')
+
 
 
 
@@ -247,6 +248,7 @@ def search_recipes(request):
     return render(request, 'main/about.html', {'recipes': results})
 
 
+
 def search_ingredients(request):
     query = request.GET.get('q', '').strip()  # Отримуємо запит користувача
     query = re.sub(r'[^\w\s,]', '', query)  # Видаляємо зайві символи
@@ -259,11 +261,16 @@ def search_ingredients(request):
         all_recipes = Recipe.objects.all()
         for recipe in all_recipes:
             recipe_ingredients = {ingredient.strip().lower() for ingredient in recipe.ingredients.split(',') if ingredient.strip()}
+            used_ingredients = query_ingredients & recipe_ingredients
+            missed_ingredients = recipe_ingredients - used_ingredients
             if query_ingredients & recipe_ingredients:  # Якщо є хоча б один збіг
                 results.append({
                     'id': recipe.id,
                     'name': recipe.name,
                     'ingredients': ', '.join(recipe_ingredients),
+                    'used_ingredients': list(used_ingredients),  # Інгредієнти, які є
+                    'missed_ingredients': list(missed_ingredients),
+                    'match_count': len(used_ingredients),  # Кількість наявних інгредієнтів#
                     'instructions': recipe.instructions,
                     'category': recipe.category,
                     'image': recipe.get_image_url(),
@@ -286,17 +293,26 @@ def search_ingredients(request):
                     for query_ing in query_ingredients
                 )
 
+                used_ingredients = query_ingredients & recipe_ingredients
+                missed_ingredients = recipe_ingredients - used_ingredients
+
                 if match_found:
                     results.append({
                         'id': None,  # Немає локального ID для Spoonacular
                         'name': recipe['name'],
                         'ingredients': ', '.join(recipe_ingredients),
+                        'used_ingredients': list(used_ingredients),  # Інгредієнти, які є
+                        'missed_ingredients': list(missed_ingredients),
+                        'match_count': len(used_ingredients),  # Кількість наявних інгредієнтів
                         'instructions': recipe.get('instructions', 'No instructions provided.'),
                         'category': recipe.get('category', 'Uncategorized'),
                         'image': recipe.get('image_url', ''),
                     })
 
+    results = sorted(results, key=itemgetter('match_count'), reverse=True)
     return render(request, 'main/index.html', {'results': results, 'query': query})
+
+
 
 
 @login_required

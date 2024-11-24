@@ -159,6 +159,14 @@
     margin-bottom: 10px;
 }
 
+.miss-ingredients{
+    font-size: 14px;
+    color: red;
+    margin-bottom: 10px;
+}
+
+
+
 .description {
     font-size: 16px;
     margin-bottom: 20px;
