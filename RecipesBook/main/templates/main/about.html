@@ -24,18 +24,19 @@
             <button type="submit">Search</button>
         </form>
 
-        <!-- Випадаючий список для категорій -->
-        <form class="category-form" method="get" action="{% url 'recipes' %}">
-            <label for="category-select">Filter by Category:</label>
-            <select name="category" id="category-select" onchange="this.form.submit()">
-                <option value="">All Categories</option>
-                {% for category in categories %}
-                    <option value="{{ category }}" {% if request.GET.category == category %}selected{% endif %}>
-                        {{ category }}
-                    </option>
-                {% endfor %}
-            </select>
-        </form>
+       <form class="category-form" method="get" action="{% url 'recipes' %}">
+    <select name="category" id="category-select" onchange="this.form.submit()">
+        <option  value="">All Categories</option>
+        {% for category in categories %}
+            <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>
+                {{ category }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
+
+
+
     </div>
 
     <div class="card-container">

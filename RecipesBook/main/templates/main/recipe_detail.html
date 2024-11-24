@@ -9,6 +9,7 @@
     {% load static %}
     {% load custom_filters %}
     <link rel="stylesheet" href="{% static 'recipeDetail.css' %}">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Хедер -->
@@ -81,7 +82,7 @@
                               {% endif %}">
                     {% csrf_token %}
                     <button type="submit" class="favorite-btn">
-                        <i class="fas fa-heart"></i> Add to Favorite Recipes
+                      Add to Favorite Recipes  <i class="fas fa-heart"></i>
                     </button>
                 </form>
             </div>

@@ -1,14 +1,9 @@
 from dbm import error
-
-from django.conf import settings
-from django.shortcuts import render
 import csv
 import re
-from django.views.generic import FormView, CreateView
+from django.views.generic import CreateView
 from .models import Recipe
-from django.shortcuts import redirect
-from fuzzysearch import find_near_matches
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from .services import get_recipe_by_name
 from django.contrib.auth.decorators import login_required
 import requests
@@ -30,6 +25,8 @@ from operator import itemgetter
 
 def recipes_view(request):
     query = request.GET.get('q', '').strip()
+    sort_by = request.GET.get('sort_by', '').strip()  # Параметр сортування
+    category_filter = request.GET.get('category', '').strip()  # Параметр фільтру категорії
     results = []
 
     # Завантаження рецептів зі Spoonacular
@@ -41,7 +38,7 @@ def recipes_view(request):
             random_url = "https://api.spoonacular.com/recipes/random"
             params = {
                 "apiKey": settings.SPOONACULAR_API_KEY,
-                "number": 1  # Кількість випадкових рецептів
+                "number": 3,  # Кількість випадкових рецептів
             }
             response = requests.get(random_url, params=params)
             if response.status_code == 200:
@@ -53,33 +50,48 @@ def recipes_view(request):
     spoonacular_recipe_names = set()
     if 'error' not in spoonacular_results:
         for recipe in spoonacular_results:
-            results.append({
-                'name': recipe.get('title', recipe.get('name')),  # Використовуємо "title" або "name"
-                'ingredients': ', '.join( [i.get('original', 'Unknown ingredient') for i in recipe.get('extendedIngredients', [])]),
-                'instructions': recipe.get('instructions', 'No instructions available'),
-                'category': recipe.get('dishTypes', ['Uncategorized'])[0] if recipe.get( 'dishTypes') else 'Uncategorized',
-                'image': recipe.get('image', ''),
-                'link': recipe.get('sourceUrl', '#'),
-            })
+            recipe_category = recipe.get('dishTypes', ['Uncategorized'])[0] if recipe.get('dishTypes') else 'Uncategorized'
+            if not category_filter or category_filter.lower() in recipe_category.lower():
+                results.append({
+                    'name': recipe.get('title', recipe.get('name')),  # Використовуємо "title" або "name"
+                    'ingredients': ', '.join([i.get('original', 'Unknown ingredient') for i in recipe.get('extendedIngredients', [])]),
+                    'instructions': recipe.get('instructions', 'No instructions available'),
+                    'category': recipe_category,
+                    'image': recipe.get('image', ''),
+                    'link': recipe.get('sourceUrl', '#'),
+                })
             spoonacular_recipe_names.add(recipe.get('name', '').lower())
 
     # Завантаження рецептів з локальної бази
     local_recipes = Recipe.objects.filter(name__icontains=query) if query else Recipe.objects.all()
     for recipe in local_recipes:
         if recipe.name.lower() not in spoonacular_recipe_names:
-            results.append({
-                'id': recipe.id,
-                'name': recipe.name,
-                'ingredients': recipe.ingredients,
-                'instructions': recipe.instructions,
-                'category': recipe.category,
-                'image': recipe.get_image_url(),
-                'link': None,
-            })
+            if not category_filter or category_filter.lower() in recipe.category.lower():
+                results.append({
+                    'id': recipe.id,
+                    'name': recipe.name,
+                    'ingredients': recipe.ingredients,
+                    'instructions': recipe.instructions,
+                    'category': recipe.category,
+                    'image': recipe.get_image_url(),
+                    'link': None,
+                })
 
-    return render(request, 'main/about.html', {'recipes': results})
+    # Сортування результатів
+    if sort_by == 'name':
+        results.sort(key=lambda x: x['name'])
+    elif sort_by == 'category':
+        results.sort(key=lambda x: x['category'])
 
+    # Отримання всіх унікальних категорій для випадаючого списку
+    all_categories = set(r['category'] for r in results if r.get('category'))
 
+    return render(request, 'main/about.html', {
+        'recipes': results,
+        'sort_by': sort_by,
+        'categories': sorted(all_categories),
+        'selected_category': category_filter
+    })
 
 
 def recipe_detail(request, id):
@@ -421,6 +433,7 @@ def main_page(request):
             for recipe in popular_recipes:
                 recipe["id"] = None
                 recipe["name"] = recipe.get("title", "No title available")
+                recipe["category"] = recipe.get("dishTypes", ['Uncategorized'])[0]
                 recipe["ingredients"] = ', '.join([i.get('original', 'Unknown ingredient') for i in recipe.get('extendedIngredients', [])])
                 recipe["image"] = recipe.get("image", "/static/default_image.jpg")
                 recipe["instructions"] = recipe.get("instructions", "Instructions not available")

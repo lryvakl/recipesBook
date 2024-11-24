@@ -139,8 +139,19 @@
     margin-bottom: 15px;
 }
 
+
+.stat .fa-heart {
+    color: #ffb6c1; /* Приклад: рожевий колір */
+}
+
+.stat .fa-book {
+    color: #ffb6c1; /* Приклад: рожевий колір */
+}
+
+
+
 .card-text .category {
-    color: #888;
+    color: #ffb6c1;
     font-size: 14px;
     text-transform: uppercase;
 }
