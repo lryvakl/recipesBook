@@ -8,13 +8,13 @@ from django.contrib.auth.views import LoginView
 from .forms import UsernameOrEmailAuthenticationForm
 
 urlpatterns = [
-    path('', views.index, name='mainPage'),
+
+    path('', views.main_page, name='mainPage'),
     path('about-us/',views.recipes_view, name='about-us'),
     path('login/', LoginView.as_view(authentication_form=UsernameOrEmailAuthenticationForm),name='login'),
     path('register/',RegisterView.as_view(), name='register'),
     path('changePass/',views.changePass, name='changePass'),
     path('profile/',views.profile, name='profile'),
-    path('addRecipe/', views.addRecipe, name='addRecipe'),
     path('add_recipe/', views.add_recipe, name='add_recipe'),
     path('recipes/', views.recipes_view, name='recipes'),
     path('about-us', views.search_recipes, name='search'),
@@ -22,7 +22,6 @@ urlpatterns = [
     path('recipe-detail/<int:id>/', views.recipe_detail, name='recipe_detail'),
     path('recipe_detail_spoonacular/<str:title>/', views.recipe_detail_spoonacular, name='recipe_detail_spoonacular'),
     path('add-to-favorites/<int:id>/', views.add_to_favorites, name='add_to_favorites'),
-    path('add_to_favorites_spoonacular/<slug:slug>/', views.add_to_favorites_spoonacular,name='add_to_favorites_spoonacular'),
     path('remove_from_favorites/<int:id>/', views.remove_from_favorites, name='remove_from_favorites'),
     path('add-to-favorites-spoonacular/<str:title>/', views.add_to_favorites_spoonacular, name='add_to_favorites_spoonacular'),
     path('delete-recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),

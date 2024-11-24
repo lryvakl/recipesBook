@@ -26,16 +26,6 @@ from fuzzywuzzy import fuzz
 from operator import itemgetter
 
 
-def index(request):
-    recipes = Recipe.objects.all()  # Завантаження всіх рецептів з бази
-    return render(request, 'main/index.html', {'recipes': recipes})
-
-
-def about(request):
-    return render(request,'main/about.html')
-
-
-
 def recipes_view(request):
     query = request.GET.get('q', '').strip()
     results = []
@@ -74,15 +64,10 @@ def recipes_view(request):
     return render(request, 'main/about.html', {'recipes': results})
 
 
-
-
 def recipe_detail(request, id):
     # Отримуємо рецепт з бази даних за ID
     recipe = get_object_or_404(Recipe, id=id)
     return render(request, 'main/recipe_detail.html', {'recipe': recipe})
-
-
-from django.shortcuts import redirect
 
 
 def recipe_detail_spoonacular(request, title):
@@ -131,8 +116,6 @@ def recipe_detail_spoonacular(request, title):
     return render(request, 'main/recipe_detail.html')
 
 
-
-
 def login(request):
     return render(request, 'main/login.html')
 
@@ -168,13 +151,6 @@ class RegisterView(CreateView):
         # Зберігаємо користувача в базі
         user = form.save()
         return super().form_valid(form)
-
-
-
-
-def addRecipe(request):
-    return render(request, 'main/addRecipe.html')
-
 
 
 @login_required
@@ -245,7 +221,6 @@ def search_recipes(request):
     return render(request, 'main/about.html', {'recipes': results})
 
 
-
 def search_ingredients(request):
     query = request.GET.get('q', '').strip()  # Отримуємо запит користувача
     query = re.sub(r'[^\w\s,]', '', query)  # Видаляємо зайві символи
@@ -310,8 +285,6 @@ def search_ingredients(request):
     return render(request, 'main/index.html', {'results': results, 'query': query})
 
 
-
-
 @login_required
 def add_to_favorites(request, id):
     # Отримуємо рецепт за ID
@@ -324,7 +297,6 @@ def add_to_favorites(request, id):
     else:
         # Перенаправляємо неавторизованих користувачів на сторінку входу
         return redirect('login')
-
 
 
 def remove_from_favorites(request, id):
@@ -401,9 +373,43 @@ def add_to_favorites_spoonacular(request, title):
     return render(request, 'main/error.html', {'message': 'Recipe not found.'})
 
 
-
 @login_required
 def delete_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id, author=request.user)
     recipe.delete()
     return redirect('profile')
+
+
+import logging
+logger = logging.getLogger(__name__)
+
+
+def main_page(request):
+    popular_recipes = []
+    try:
+        # Запит до Spoonacular
+        popular_url = "https://api.spoonacular.com/recipes/random"
+        params = {
+            "apiKey": settings.SPOONACULAR_API_KEY,
+            "number": 0
+        }
+        response = requests.get(popular_url, params=params)
+
+        # Перевірка статусу відповіді
+        if response.status_code == 200:
+            data = response.json()
+            popular_recipes = data.get("recipes", [])
+
+            for recipe in popular_recipes:
+                recipe["id"] = None
+                recipe["name"] = recipe.get("title", "No title available")
+                recipe["ingredients"] = ', '.join([i.get('original', 'Unknown ingredient') for i in recipe.get('extendedIngredients', [])])
+                recipe["image"] = recipe.get("image", "/static/default_image.jpg")
+                recipe["instructions"] = recipe.get("instructions", "Instructions not available")
+        else:
+            logger.error(f"API error: {response.status_code}, {response.text}")
+    except Exception as e:
+        logger.exception(f"Помилка при запиті: {str(e)}")
+
+    return render(request, "main/index.html", {"popular_recipes": popular_recipes})
+

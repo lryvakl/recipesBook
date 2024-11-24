@@ -24,6 +24,7 @@
 
 
  .centered-container {
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +32,7 @@
 }
 
 .centered-container h4 {
-    margin: 0;
+
     font-size: 24px;
     color: #333;
 }
