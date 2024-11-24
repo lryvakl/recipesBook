@@ -40,29 +40,14 @@ def recipes_view(request):
     query = request.GET.get('q', '').strip()  # Отримуємо пошуковий запит, якщо є
     results = []
 
-    # Завантаження рецептів з локальної бази даних
-    if query:
-        local_recipes = Recipe.objects.filter(name__icontains=query)
-    else:
-        local_recipes = Recipe.objects.all()
-
-    for recipe in local_recipes:
-        results.append({
-            'id': recipe.id,
-            'name': recipe.name,
-            'ingredients': recipe.ingredients,
-            'instructions': recipe.instructions,
-            'category': recipe.category,
-            'image': recipe.get_image_url(),
-            'link': None,
-        })
-
     # Завантаження рецептів зі Spoonacular
     if query:
         spoonacular_results = get_recipe_by_name(query)  # Пошук за запитом
     else:
         spoonacular_results = get_recipe_by_name("")  # Пошук без запиту (всі рецепти або випадкові)
 
+    # Якщо результати Spoonacular є, додаємо їх до results
+    spoonacular_recipe_names = set()  # Множина назв рецептів зі Spoonacular для перевірки дублювання
     if 'error' not in spoonacular_results:
         for recipe in spoonacular_results:
             results.append({
@@ -74,8 +59,31 @@ def recipes_view(request):
                 'image': recipe['image_url'],
                 'link': recipe.get('sourceUrl', '#'),
             })
+            spoonacular_recipe_names.add(recipe['name'].lower())  # Додаємо назву рецепта до множини
+
+    # Завантаження рецептів з локальної бази даних
+    if query:
+        local_recipes = Recipe.objects.filter(name__icontains=query)
+    else:
+        local_recipes = Recipe.objects.all()
+
+    for recipe in local_recipes:
+        # Перевірка, чи є рецепт з такою ж назвою у Spoonacular
+        if recipe.name.lower() not in spoonacular_recipe_names:  # Якщо такого рецепта з бази немає в Spoonacular
+            results.append({
+                'id': recipe.id,
+                'name': recipe.name,
+                'ingredients': recipe.ingredients,
+                'instructions': recipe.instructions,
+                'category': recipe.category,
+                'image': recipe.get_image_url(),
+                'link': None,
+            })
 
     return render(request, 'main/about.html', {'recipes': results})
+
+
+
 
 
 def recipe_detail(request, id):
