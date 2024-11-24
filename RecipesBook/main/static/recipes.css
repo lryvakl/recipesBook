@@ -216,6 +216,35 @@ h1 {
 
 
 
+.category-form {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#category-select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f9f9f9;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+#category-select:hover {
+    border-color: #999;
+}
+
+#category-select:focus {
+    outline: none;
+    border-color: #333;
+}
+
+
+
 
 /* Показати зображення на великих екранах */
 @media (min-width: 768px) {

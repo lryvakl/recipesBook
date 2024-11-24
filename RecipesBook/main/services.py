@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = 'https://api.spoonacular.com/recipes'
 
-def get_recipe_by_name(name, number=5):
+def get_recipe_by_name(name, number=10):
     """
     Отримання рецептів за назвою з Spoonacular API.
     """

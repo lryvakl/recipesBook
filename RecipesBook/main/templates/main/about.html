@@ -16,57 +16,71 @@
     <a href="{% url 'profile' %}" class="back-btn">My Profile</a>
 </header>
 
-    <div class="container">
-        <div class="header">
-            <h1>Recipes</h1>
-            <form class="search-form" method="get" action="{% url 'search' %}">
-                <input type="search" name="q" placeholder="Search Recipes" aria-label="Search Recipes" >
-                <button type="submit">Search</button>
-            </form>
-        </div>
+<div class="container">
+    <div class="header">
+        <h1>Recipes</h1>
+        <form class="search-form" method="get" action="{% url 'search' %}">
+            <input type="search" name="q" placeholder="Search Recipes" aria-label="Search Recipes">
+            <button type="submit">Search</button>
+        </form>
 
-        <div class="card-container">
-            {% for recipe in recipes %}
-
-                <div class="card">
-                        <div class="card-content">
-                            <div class="card-text">
-                                <strong class="category">{{ recipe.category }}</strong>
-                                <h3 class="title">{{ recipe.name }}</h3>
-                                <p class="ingredients"><strong>Ingredients:</strong> {{ recipe.ingredients|truncatewords:20 }}</p>
-                              <p class="description"><strong>Instructions:</strong>
-                                        {% if recipe.instructions %}
-                                            {% if recipe.instructions|length > 100 %}
-                                                {{ recipe.instructions|truncatewords:20|safe }}
-                                            {% else %}
-                                                {{ recipe.instructions|truncatewords:20 }}
-                                            {% endif %}
-                                        {% else %}
-                                            No instructions available.
-                                        {% endif %}
-                                    </p>
-                                  <div class="recipe-card-footer">
-                                   {% if recipe.id %}
-                           <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
-                        {% else %}
-                        <a href="{% url 'recipe_detail_spoonacular' recipe.name %}" class="view-recipe-btn">View Full Recipe <span class="icon">→</span></a>
-
-                        {% endif %}
-                                </div>
-                            </div>
-                                <div class="image">
-                                <img src="{{ recipe.image }}" alt="{{ recipe.name }}" width="200" height="250">
-                            </div>
-
-                        </div>
-                    </div>
-            {% endfor %}
-        </div>
+        <!-- Випадаючий список для категорій -->
+        <form class="category-form" method="get" action="{% url 'recipes' %}">
+            <label for="category-select">Filter by Category:</label>
+            <select name="category" id="category-select" onchange="this.form.submit()">
+                <option value="">All Categories</option>
+                {% for category in categories %}
+                    <option value="{{ category }}" {% if request.GET.category == category %}selected{% endif %}>
+                        {{ category }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
     </div>
 
-            <button class="add-recipe-btn" onclick="window.location.href='{% url 'add_recipe' %}'">
-                <i class="fas fa-plus"></i> Add Recipe
-            </button>
+    <div class="card-container">
+        {% for recipe in recipes %}
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-text">
+                        <strong class="category">{{ recipe.category }}</strong>
+                        <h3 class="title">{{ recipe.name }}</h3>
+                        <p class="ingredients"><strong>Ingredients:</strong> {{ recipe.ingredients|truncatewords:20 }}</p>
+                        <p class="description"><strong>Instructions:</strong>
+                            {% if recipe.instructions %}
+                                {% if recipe.instructions|length > 100 %}
+                                    {{ recipe.instructions|truncatewords:20|safe }}
+                                {% else %}
+                                    {{ recipe.instructions|truncatewords:20 }}
+                                {% endif %}
+                            {% else %}
+                                No instructions available.
+                            {% endif %}
+                        </p>
+                        <div class="recipe-card-footer">
+                            {% if recipe.id %}
+                                <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">
+                                    View Full Recipe <span class="icon">→</span>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'recipe_detail_spoonacular' recipe.name %}" class="view-recipe-btn">
+                                    View Full Recipe <span class="icon">→</span>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="{{ recipe.image }}" alt="{{ recipe.name }}" width="200" height="250">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<button class="add-recipe-btn" onclick="window.location.href='{% url 'add_recipe' %}'">
+    <i class="fas fa-plus"></i> Add Recipe
+</button>
 
 </body>
 </html>

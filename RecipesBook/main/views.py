@@ -26,26 +26,42 @@ from fuzzywuzzy import fuzz
 from operator import itemgetter
 
 
+
+
 def recipes_view(request):
     query = request.GET.get('q', '').strip()
     results = []
 
     # Завантаження рецептів зі Spoonacular
-    spoonacular_results = get_recipe_by_name(query if query else "")
-    spoonacular_recipe_names = set()
+    spoonacular_results = []
+    if query:
+        spoonacular_results = get_recipe_by_name(query)
+    else:
+        try:
+            random_url = "https://api.spoonacular.com/recipes/random"
+            params = {
+                "apiKey": settings.SPOONACULAR_API_KEY,
+                "number": 1  # Кількість випадкових рецептів
+            }
+            response = requests.get(random_url, params=params)
+            if response.status_code == 200:
+                data = response.json()
+                spoonacular_results = data.get("recipes", [])
+        except Exception as e:
+            print(f"Error during Spoonacular random recipes fetch: {e}")
 
+    spoonacular_recipe_names = set()
     if 'error' not in spoonacular_results:
         for recipe in spoonacular_results:
             results.append({
-
-                'name': recipe.get('name'),
-                'ingredients': recipe['ingredients'],
-                'instructions': recipe['instructions'],
-                'category': recipe.get('category', 'Unknown'),
-                'image': recipe['image_url'],
+                'name': recipe.get('title', recipe.get('name')),  # Використовуємо "title" або "name"
+                'ingredients': ', '.join( [i.get('original', 'Unknown ingredient') for i in recipe.get('extendedIngredients', [])]),
+                'instructions': recipe.get('instructions', 'No instructions available'),
+                'category': recipe.get('dishTypes', ['Uncategorized'])[0] if recipe.get( 'dishTypes') else 'Uncategorized',
+                'image': recipe.get('image', ''),
                 'link': recipe.get('sourceUrl', '#'),
             })
-            spoonacular_recipe_names.add(recipe['name'].lower())
+            spoonacular_recipe_names.add(recipe.get('name', '').lower())
 
     # Завантаження рецептів з локальної бази
     local_recipes = Recipe.objects.filter(name__icontains=query) if query else Recipe.objects.all()
@@ -62,6 +78,8 @@ def recipes_view(request):
             })
 
     return render(request, 'main/about.html', {'recipes': results})
+
+
 
 
 def recipe_detail(request, id):
