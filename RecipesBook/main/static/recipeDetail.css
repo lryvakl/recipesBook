@@ -95,6 +95,34 @@ header .back-btn:hover, header .register-btn:hover {
 }
 
 
+/* Стилізація кнопки для оригінального рецепту */
+.view-original-recipe {
+    margin-top: 20px;
+}
+
+.btn-original-recipe {
+    text-align: center;
+    background-color: #ff9ca1; /* Помаранчевий фон */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    width: 200px;
+
+}
+
+.btn-original-recipe:hover {
+    background-color: #ffb6c1; /* Трохи темніший помаранчевий при наведенні */
+}
+
+.btn-original-recipe i {
+    margin-right: 8px; /* Відстань між іконкою і текстом */
+}
 
 
 /* Стилі для текстової частини рецепту */

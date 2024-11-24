@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +7,7 @@
     {% load static %}
     {% load custom_filters %}
     <link rel="stylesheet" href="{% static 'recipeDetail.css' %}">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Хедер -->
@@ -17,52 +15,47 @@
         <a href="{% url 'about-us' %}" class="back-btn">Recipes</a>
         <h1>What’s for Dinner?</h1>
         <a href="{% url 'profile' %}" class="back-btn">My Profile</a>
-
     </header>
 
     <!-- Основний контейнер -->
     <div class="container">
         <div class="main-recipe-container">
-           <!-- Зображення рецепту -->
-                                <div class="recipe-image">
-                    {% if recipe.image_url %}
-                        <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" class="fixed-size-image">
-                    {% elif recipe.image %}
-                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="fixed-size-image">
-                    {% endif %}
-                </div>
-
+            <!-- Зображення рецепту -->
+            <div class="recipe-image">
+                {% if recipe.image_url %}
+                    <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" class="fixed-size-image">
+                {% elif recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="fixed-size-image">
+                {% endif %}
+            </div>
 
             <!-- Деталі рецепту -->
             <div class="recipe-details">
                 <h1>{{ recipe.name }}</h1>
                 <p class="category">Category: {{ recipe.category }}</p>
 
-               <!-- Інгредієнти -->
-                        <div class="ingredients">
-                            <h3>Ingredients:</h3>
-                            {% if recipe.ingredients %}
-                                <ul>
-                                    {% if recipe.ingredients.0.original %}
-                                        {% for ingredient in recipe.ingredients %}
-                                            <li>{{ ingredient.original }}</li>
-                                        {% endfor %}
-                                    {% else %}
-                                      {% for ingredient in recipe.ingredients|split:"," %}
-                                <li>{{ ingredient }}</li>
-                            {% endfor %}
-                                    {% endif %}
-                                </ul>
+                <!-- Інгредієнти -->
+                <div class="ingredients">
+                    <h3>Ingredients:</h3>
+                    {% if recipe.ingredients %}
+                        <ul>
+                            {% if recipe.ingredients.0.original %}
+                                {% for ingredient in recipe.ingredients %}
+                                    <li>{{ ingredient.original }}</li>
+                                {% endfor %}
                             {% else %}
-                                <p>No ingredients available.</p>
+                                {% for ingredient in recipe.ingredients|split:"," %}
+                                    <li>{{ ingredient }}</li>
+                                {% endfor %}
                             {% endif %}
-                        </div>
-
-
-
+                        </ul>
+                    {% else %}
+                        <p>No ingredients available.</p>
+                    {% endif %}
+                </div>
 
                 <!-- Інструкції -->
-                              <div class="instructions">
+                <div class="instructions">
                     <h3>Instructions:</h3>
                     {% if recipe.instructions %}
                         <div>{{ recipe.instructions|safe }}</div>
@@ -71,25 +64,40 @@
                     {% endif %}
                 </div>
 
+                <!-- Харчова цінність -->
+                <div class="nutrition">
+                    <h3>Nutrition Information:</h3>
+                    <ul>
+                        <li><strong>Calories:</strong> {{ recipe.calories }} kcal</li>
+                        <li><strong>Protein:</strong> {{ recipe.protein }} g</li>
+                        <li><strong>Fat:</strong> {{ recipe.fat }} g</li>
+                        <li><strong>Carbohydrates:</strong> {{ recipe.carbs }} g</li>
+                    </ul>
+                </div>
 
-                             <!-- Кнопка додавання до улюблених -->
-                                     <div class="add-favorite">
-                <form method="POST"
-                      action="{% if recipe.id %}
-                                  {% url 'add_to_favorites' recipe.id %}
-                              {% else %}
-                                  {% url 'add_to_favorites_spoonacular' recipe.name %}
-                              {% endif %}">
-                    {% csrf_token %}
-                    <button type="submit" class="favorite-btn">
-                      Add to Favorite Recipes  <i class="fas fa-heart"></i>
-                    </button>
-                </form>
-            </div>
+                <!-- Кнопка додавання до улюблених -->
+                <div class="add-favorite">
+                    <form method="POST"
+                          action="{% if recipe.id %}
+                                      {% url 'add_to_favorites' recipe.id %}
+                                  {% else %}
+                                      {% url 'add_to_favorites_spoonacular' recipe.name %}
+                                  {% endif %}">
+                        {% csrf_token %}
+                        <button type="submit" class="favorite-btn">
+                            Add to Favorite Recipes  <i class="fas fa-heart"></i>
+                        </button>
+                    </form>
+                </div>
 
-
-
-
+                <!-- Кнопка для посилання на оригінальний рецепт (для Spoonacular) -->
+                {% if recipe.source_url %}
+                    <div class="view-original-recipe">
+                        <a href="{{ recipe.source_url }}" target="_blank" class="btn-original-recipe">
+                            <i class="fas fa-external-link-alt"></i> View Original Recipe
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

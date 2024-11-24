@@ -78,8 +78,8 @@
                             <div class="card-text">
                                 <strong class="category">{{ recipe.category }}</strong>
                                 <h3 class="title">{{ recipe.name }}</h3>
-                                <p class="ingredients"><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
-                                <p class="miss-ingredients"><strong>Missed Ingredients:</strong> {{ recipe.missed_ingredients|join:", " }}</p>
+                                <p class="ingredients"><strong>Ingredients:</strong> {{ recipe.ingredients|truncatewords:20 }}</p>
+                                <p class="miss-ingredients"><strong>Missed Ingredients:</strong> {{ recipe.missed_ingredients|join:", "|truncatewords:20 }}</p>
                               <p class="description"><strong>Instructions:</strong>
                             {% if recipe.instructions %}
                                 {% if recipe.instructions|length > 100 %}

@@ -100,6 +100,11 @@ def recipe_detail(request, id):
     return render(request, 'main/recipe_detail.html', {'recipe': recipe})
 
 
+from django.conf import settings
+from django.shortcuts import render, redirect
+import requests
+
+
 def recipe_detail_spoonacular(request, title):
     # Пошук рецепта за назвою
     search_url = "https://api.spoonacular.com/recipes/complexSearch"
@@ -115,7 +120,6 @@ def recipe_detail_spoonacular(request, title):
         results = search_response.json().get('results', [])
         if results:  # Якщо знайдено хоча б один рецепт
             recipe_id = results[0].get('id')
-            source_url = results[0].get('sourceUrl', '#')
             if recipe_id:
                 # Отримання детальної інформації про рецепт
                 detail_url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
@@ -124,26 +128,31 @@ def recipe_detail_spoonacular(request, title):
                 if detail_response.status_code == 200:
                     recipe = detail_response.json()
 
-
+                    # Отримання харчової інформації
+                    nutrition = recipe.get('nutrition', {}).get('nutrients', [])
+                    calories = next((item['amount'] for item in nutrition if item['title'] == 'Calories'), 'N/A')
+                    protein = next((item['amount'] for item in nutrition if item['title'] == 'Protein'), 'N/A')
+                    fat = next((item['amount'] for item in nutrition if item['title'] == 'Fat'), 'N/A')
+                    carbs = next((item['amount'] for item in nutrition if item['title'] == 'Carbohydrates'), 'N/A')
 
                     context = {
                         'recipe': {
                             'name': recipe.get('title', 'No name available'),
                             'ingredients': recipe.get('extendedIngredients', []),
+                            'calories': calories,  # Передаємо значення нутрієнтів
+                            'protein': protein,
+                            'fat': fat,
+                            'carbs': carbs,
                             'instructions': recipe.get('instructions', 'No instructions available'),
                             'category': recipe.get('dishTypes', ['Unknown'])[0],
                             'image_url': recipe.get('image', '/static/default_image.jpg'),
                             'source_url': recipe.get('sourceUrl', '#')  # Додано джерело
-
                         }
                     }
                     return render(request, 'main/recipe_detail.html', context)
 
-                elif source_url and source_url != '#':
-                    return redirect(source_url)
-
- # Якщо рецепт не знайдено в Spoonacular
-    return render(request, 'main/recipe_detail.html')
+    # Якщо рецепт не знайдено або сталася помилка
+    return render(request, 'main/recipe_detail.html', {'error': 'Recipe not found or unavailable.'})
 
 
 def login(request):
@@ -421,7 +430,7 @@ def main_page(request):
         popular_url = "https://api.spoonacular.com/recipes/random"
         params = {
             "apiKey": settings.SPOONACULAR_API_KEY,
-            "number": 0
+            "number": 3
         }
         response = requests.get(popular_url, params=params)
 
