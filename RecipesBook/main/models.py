@@ -14,7 +14,7 @@ class Recipe(models.Model):
     favorite_by_users = models.ManyToManyField(User, related_name='favorite_recipes', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
     created_at = models.DateTimeField(auto_now_add=True)
-    sourse_url = models.URLField(blank=True, null=True)
+    source_url = models.URLField(blank=True, null=True)
 
 
     def get_image_url(self):
