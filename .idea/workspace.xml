@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="+url .models">
+    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="url зберігається в базу, завжди працює view or. recipe">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/RecipesBook/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/views.py" afterDir="false" />
     </list>
@@ -94,7 +93,7 @@
       <workItem from="1731151525391" duration="11879000" />
       <workItem from="1731604640036" duration="7896000" />
       <workItem from="1732043185083" duration="29786000" />
-      <workItem from="1732622651317" duration="987000" />
+      <workItem from="1732622651317" duration="3522000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -320,7 +319,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732556909274</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="url зберігається в базу, завжди працює view or. recipe">
+      <option name="closed" value="true" />
+      <created>1732624167833</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1732624167833</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,7 +390,8 @@
     <MESSAGE value="додано рандомні рецепти на сторінці з рецептами" />
     <MESSAGE value="додано випадаючий список по категоріям&#10;+some ui changes" />
     <MESSAGE value="+url .models" />
-    <option name="LAST_COMMIT_MESSAGE" value="+url .models" />
+    <MESSAGE value="url зберігається в базу, завжди працює view or. recipe" />
+    <option name="LAST_COMMIT_MESSAGE" value="url зберігається в базу, завжди працює view or. recipe" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/recipesBook$views.coverage" NAME="views Coverage Results" MODIFIED="1730981920564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RecipesBook/main" />

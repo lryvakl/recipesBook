@@ -20,13 +20,18 @@ from django.urls import reverse_lazy
 from fuzzywuzzy import fuzz
 from operator import itemgetter
 
+import random
 
 
+import random
+import requests
+from django.conf import settings
+from .models import Recipe
 
 def recipes_view(request):
     query = request.GET.get('q', '').strip()
-    sort_by = request.GET.get('sort_by', '').strip()  # Параметр сортування
-    category_filter = request.GET.get('category', '').strip()  # Параметр фільтру категорії
+    sort_by = request.GET.get('sort_by', '').strip()
+    category_filter = request.GET.get('category', '').strip()
     results = []
 
     # Завантаження рецептів зі Spoonacular
@@ -38,7 +43,7 @@ def recipes_view(request):
             random_url = "https://api.spoonacular.com/recipes/random"
             params = {
                 "apiKey": settings.SPOONACULAR_API_KEY,
-                "number": 3,  # Кількість випадкових рецептів
+                "number": 3,
             }
             response = requests.get(random_url, params=params)
             if response.status_code == 200:
@@ -53,7 +58,7 @@ def recipes_view(request):
             recipe_category = recipe.get('dishTypes', ['Uncategorized'])[0] if recipe.get('dishTypes') else 'Uncategorized'
             if not category_filter or category_filter.lower() in recipe_category.lower():
                 results.append({
-                    'name': recipe.get('title', recipe.get('name')),  # Використовуємо "title" або "name"
+                    'name': recipe.get('title', recipe.get('name')),
                     'ingredients': ', '.join([i.get('original', 'Unknown ingredient') for i in recipe.get('extendedIngredients', [])]),
                     'instructions': recipe.get('instructions', 'No instructions available'),
                     'category': recipe_category,
@@ -62,7 +67,7 @@ def recipes_view(request):
                 })
             spoonacular_recipe_names.add(recipe.get('name', '').lower())
 
-    # Завантаження рецептів з локальної бази
+    # Завантаження локальних рецептів
     local_recipes = Recipe.objects.filter(name__icontains=query) if query else Recipe.objects.all()
     for recipe in local_recipes:
         if recipe.name.lower() not in spoonacular_recipe_names:
@@ -77,21 +82,49 @@ def recipes_view(request):
                     'link': None,
                 })
 
+    # Отримання рандомних рецептів зі Spoonacular API для категорії
+    if category_filter:
+        try:
+            url = "https://api.spoonacular.com/recipes/complexSearch"
+            params = {
+                "apiKey": settings.SPOONACULAR_API_KEY,
+                "number": 10,
+                "type": category_filter,
+                "addRecipeInformation": True,  # Отримуємо деталі рецепта
+            }
+            response = requests.get(url, params=params)
+            if response.status_code == 200:
+                spoonacular_detailed_results = response.json().get("results", [])
+                for recipe in spoonacular_detailed_results:
+                    results.append({
+                        'name': recipe.get('title', 'No Title'),
+                        'ingredients': ', '.join([i.get('original', 'Unknown ingredient') for i in recipe.get('extendedIngredients', [])]),
+                        'instructions': recipe.get('instructions', 'Instructions not available'),
+                        'category': recipe.get('dishTypes', ['Uncategorized'])[0] if recipe.get('dishTypes') else 'Uncategorized',
+                        'image': recipe.get('image', ''),
+                        'link': recipe.get('sourceUrl', '#'),
+                    })
+        except Exception as e:
+            print(f"Error fetching detailed recipes from Spoonacular: {e}")
+
     # Сортування результатів
     if sort_by == 'name':
         results.sort(key=lambda x: x['name'])
     elif sort_by == 'category':
         results.sort(key=lambda x: x['category'])
 
-    # Отримання всіх унікальних категорій для випадаючого списку
+    # Отримання унікальних категорій для випадаючого списку
     all_categories = set(r['category'] for r in results if r.get('category'))
 
     return render(request, 'main/about.html', {
         'recipes': results,
         'sort_by': sort_by,
         'categories': sorted(all_categories),
-        'selected_category': category_filter
+        'selected_category': category_filter,
     })
+
+
+
 
 
 def recipe_detail(request, id):
