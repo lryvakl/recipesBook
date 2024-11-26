@@ -26,38 +26,45 @@
         <button class="tab-button active" data-tab="my-profile">My Profile</button>
         <button class="tab-button" data-tab="favorite-recipes">Favorite Recipes</button>
         <button class="tab-button" data-tab="my-recipes">My Recipes</button>
+        <button class="tab-button" data-tab="want-to-cook">Want to Cook</button>
+
         <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" class="register-btn">Log Out</button>
-</form>
+        </form>
 
 
     </div>
 
     <!-- Tab Contents -->
     <div id="my-profile" class="tab-content active">
-    <div class="profile-header">
+        <div class="profile-header">
 
             <img src="{{ user.profile.photo.url }}" alt="" class="profile-picture">
 
         <h2 class="username">{{ user.username }}</h2>
         <p class="email">{{ user.email }}</p>
-    </div>
+        </div>
 
-     <div class="profile-stats">
+    <div class="profile-stats">
         <div class="stat">
-            <i class="fas fa-book"></i>
-            <strong>{{ user.recipes.count }}</strong>
-            <p>My Recipes</p>
+        <i class="fas fa-book"></i>
+        <strong>{{ user.recipes.count }}</strong>
+        <p>My Recipes</p>
         </div>
         <div class="stat">
-            <i class="fas fa-heart"></i>
-            <strong>{{ favorite_recipes.count }}</strong>
-            <p>Favorites</p>
-        </div>
-    </div>
+        <i class="fas fa-heart"></i>
+        <strong>{{ favorite_recipes.count }}</strong>
+        <p>Favorites</p>
+     </div>
+        <div class="stat">
+        <i class="fas fa-utensils"></i>
+        <strong>{{ want_to_cook_recipes.count }}</strong>
+        <p>Want to Cook</p>
+         </div>
 
-</div>
+    </div>
+        </div>
 
 
    <div id="favorite-recipes" class="tab-content">
@@ -158,6 +165,75 @@
         <p>You haven't added any recipes yet.</p>
     {% endif %}
 </div>
+
+    <div id="want-to-cook" class="tab-content">
+    <h3>Want to Cook Recipes</h3>
+    {% if want_to_cook_recipes %}
+        <div class="card-container">
+            {% for recipe in want_to_cook_recipes %}
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <strong class="category">{{ recipe.category }}</strong>
+                            <h3 class="title">{{ recipe.name }}</h3>
+                            <p class="ingredients">{{ recipe.ingredients|truncatewords:20 }}</p>
+                            <p class="description"><strong>Instructions:</strong>
+                                {% if recipe.instructions %}
+                                    {% if recipe.instructions|length > 100 %}
+                                        {{ recipe.instructions|truncatewords:20|safe }}
+                                    {% else %}
+                                        {{ recipe.instructions|truncatewords:20 }}
+                                    {% endif %}
+                                {% else %}
+                                    No instructions available.
+                                {% endif %}
+                            </p>
+                            <div class="recipe-card-footer">
+                                <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">
+                                    View Full Recipe <span class="icon">→</span>
+                                </a>
+                                <form action="{% url 'remove_from_want_to_cook' recipe.id %}" method="post" class="remove-form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="remove-btn">×</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="image">
+                            {% if recipe.image_url %}
+                                <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" width="200" height="250">
+                            {% elif recipe.image %}
+                                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" width="200" height="250">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have no recipes in your Want to Cook list yet.</p>
+    {% endif %}
+
+
+               <div id="shopping-list" class="tab-content">
+    <h3>Shopping List</h3>
+    {% if shopping_list %}
+        <div class="shopping-list-container">
+            <ul>
+                {% for ingredient, quantity in shopping_list.items %}
+                    <li>{{ ingredient }}: {{ quantity }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p>You have no items in your shopping list.</p>
+    {% endif %}
+</div>
+
+
+
+
+</div>
+
 
 </div>
 

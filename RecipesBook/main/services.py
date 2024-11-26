@@ -33,12 +33,6 @@ def get_recipe_by_name(name, number=10):
                 if detail_response.status_code == 200:
                     recipe = detail_response.json()
 
-                    # Перевірка наявності харчової цінності
-                    nutrition = recipe.get('nutrition', {}).get('nutrients', [])
-                    calories = next((item['amount'] for item in nutrition if item['title'] == 'Calories'), None)
-                    protein = next((item['amount'] for item in nutrition if item['title'] == 'Protein'), None)
-                    fat = next((item['amount'] for item in nutrition if item['title'] == 'Fat'), None)
-                    carbs = next((item['amount'] for item in nutrition if item['title'] == 'Carbohydrates'), None)
 
                     recipes.append({
                         'id': recipe.get('id'),
@@ -48,12 +42,11 @@ def get_recipe_by_name(name, number=10):
                         'category': recipe.get('dishTypes', ['Uncategorized'])[0] if recipe.get('dishTypes') else 'Uncategorized',
                         'image_url': recipe.get('image', image_url),
                         'sourceUrl': recipe.get('sourceUrl', '#'),
-                        'calories': calories,
-                        'protein': protein,
-                        'fat': fat,
-                        'carbs': carbs,
+
                     })
-                    print(f"Отримано рецепт з ID: {recipe.get('id')}")
+
+
+
                 else:
                     print(f"Помилка при отриманні деталей для рецепта ID: {id}, Код відповіді: {detail_response.status_code}")
                     recipes.append({
@@ -64,10 +57,7 @@ def get_recipe_by_name(name, number=10):
                         'category': 'Uncategorized',
                         'image_url': image_url,
                         'sourceUrl': '#',
-                        'calories': None,
-                        'protein': None,
-                        'fat': None,
-                        'carbs': None,
+
                     })
         print(f"Пошук рецептів за запитом: {name}")
         return recipes

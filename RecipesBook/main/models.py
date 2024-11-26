@@ -1,6 +1,5 @@
 
 import os
-# Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -15,7 +14,7 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
     created_at = models.DateTimeField(auto_now_add=True)
     source_url = models.URLField(blank=True, null=True)
-
+    want_to_cook_by_users = models.ManyToManyField(User, related_name='want_to_cook_recipes', blank=True)
 
     def get_image_url(self):
         if self.image:  # Якщо локальне зображення існує
@@ -27,3 +26,5 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
+
+

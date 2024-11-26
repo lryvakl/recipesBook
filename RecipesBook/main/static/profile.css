@@ -141,11 +141,16 @@
 
 
 .stat .fa-heart {
-    color: #ffb6c1; /* Приклад: рожевий колір */
+    color: #ffb6c1;
 }
 
 .stat .fa-book {
-    color: #ffb6c1; /* Приклад: рожевий колір */
+    color: #ffb6c1;
+}
+
+
+.stat .fa-utensils{
+     color: #ffb6c1;
 }
 
 

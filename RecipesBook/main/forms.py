@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 
+
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True, help_text="Required. Enter a valid email address.", label="Email")
 
@@ -36,3 +37,7 @@ class UsernameOrEmailAuthenticationForm(AuthenticationForm):
             'placeholder': 'Enter your password',
         }),
     )
+
+
+
+

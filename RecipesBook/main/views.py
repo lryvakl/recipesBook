@@ -3,6 +3,7 @@ import csv
 import re
 from django.views.generic import CreateView
 from .models import Recipe
+
 from django.shortcuts import get_object_or_404
 from .services import get_recipe_by_name
 from django.contrib.auth.decorators import login_required
@@ -19,14 +20,12 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from fuzzywuzzy import fuzz
 from operator import itemgetter
+from datetime import timedelta
+from collections import defaultdict
 
 import random
 
 
-import random
-import requests
-from django.conf import settings
-from .models import Recipe
 
 def recipes_view(request):
     query = request.GET.get('q', '').strip()
@@ -88,7 +87,7 @@ def recipes_view(request):
             url = "https://api.spoonacular.com/recipes/complexSearch"
             params = {
                 "apiKey": settings.SPOONACULAR_API_KEY,
-                "number": 10,
+                "number": 1,
                 "type": category_filter,
                 "addRecipeInformation": True,  # Отримуємо деталі рецепта
             }
@@ -124,9 +123,6 @@ def recipes_view(request):
     })
 
 
-
-
-
 def recipe_detail(request, id):
     # Отримуємо рецепт з бази даних за ID
     recipe = get_object_or_404(Recipe, id=id)
@@ -156,21 +152,11 @@ def recipe_detail_spoonacular(request, title):
                 if detail_response.status_code == 200:
                     recipe = detail_response.json()
 
-                    # Отримання харчової інформації
-                    nutrition = recipe.get('nutrition', {}).get('nutrients', [])
-                    calories = next((item['amount'] for item in nutrition if item['title'] == 'Calories'), 'N/A')
-                    protein = next((item['amount'] for item in nutrition if item['title'] == 'Protein'), 'N/A')
-                    fat = next((item['amount'] for item in nutrition if item['title'] == 'Fat'), 'N/A')
-                    carbs = next((item['amount'] for item in nutrition if item['title'] == 'Carbohydrates'), 'N/A')
 
                     context = {
                         'recipe': {
                             'name': recipe.get('title', 'No name available'),
                             'ingredients': recipe.get('extendedIngredients', []),
-                            'calories': calories,  # Передаємо значення нутрієнтів
-                            'protein': protein,
-                            'fat': fat,
-                            'carbs': carbs,
                             'instructions': recipe.get('instructions', 'No instructions available'),
                             'category': recipe.get('dishTypes', ['Unknown'])[0],
                             'image_url': recipe.get('image', '/static/default_image.jpg'),
@@ -183,12 +169,29 @@ def recipe_detail_spoonacular(request, title):
     return render(request, 'main/recipe_detail.html', {'error': 'Recipe not found or unavailable.'})
 
 
+
 def login(request):
     return render(request, 'main/login.html')
 
 
 def changePass(request):
     return render(request, 'main/changePass.html')
+
+
+def parse_ingredients(ingredients_text):
+    ingredients = ingredients_text.split(',')  # Розбиваємо текст на інгредієнти
+    parsed_ingredients = defaultdict(str)
+
+    for ingredient in ingredients:
+        parts = ingredient.strip().split(' ', 1)  # Розділяємо на кількість і сам інгредієнт
+        if len(parts) > 1:
+            quantity = parts[0]  # Кількість
+            ingredient_name = parts[1]  # Назва інгредієнта
+            parsed_ingredients[ingredient_name] += quantity  # Додаємо до списку інгредієнтів
+        else:
+            parsed_ingredients[parts[0]] = ''  # Якщо немає кількості, додаємо інгредієнт без кількості
+
+    return parsed_ingredients
 
 
 @login_required
@@ -199,12 +202,21 @@ def profile(request):
     my_recipes = Recipe.objects.filter(author=user)
     # Отримуємо всі улюблені рецепти поточного користувача
     favorite_recipes = request.user.favorite_recipes.all()  # related_name='favorite_recipes'
+    want_to_cook_recipes = request.user.want_to_cook_recipes.all()
+    shopping_list = defaultdict(str)
 
-    # Передаємо список улюблених рецептів у контекст
+    for recipe in want_to_cook_recipes:
+        # Парсимо інгредієнти
+        ingredients = parse_ingredients(recipe.ingredients)
+        for ingredient, quantity in ingredients.items():  # Використовуємо .items() для доступу до інгредієнтів і їх кількості
+            shopping_list[ingredient] += f"{quantity} "
+    print(shopping_list)
     context = {
         'user': user,
         'my_recipes': my_recipes,
         'favorite_recipes': favorite_recipes,
+        'want_to_cook_recipes': want_to_cook_recipes,
+        'shopping_list': shopping_list,
     }
     return render(request, 'main/profile.html', context)
 
@@ -482,3 +494,90 @@ def main_page(request):
 
     return render(request, "main/index.html", {"popular_recipes": popular_recipes})
 
+@login_required
+def add_to_want_to_cook(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
+
+    # Додаємо цей рецепт до улюблених поточного користувача
+    if request.user.is_authenticated:
+        recipe.want_to_cook_by_users.add(request.user)
+        return redirect('recipe_detail', id=recipe_id)
+    else:
+        # Перенаправляємо неавторизованих користувачів на сторінку входу
+        return redirect('login')
+
+
+
+@login_required
+def add_to_want_to_cook_spoonacular(request, title):
+    # Формуємо запит до Spoonacular API
+    url = "https://api.spoonacular.com/recipes/complexSearch"
+    params = {
+        'query': title,
+        'apiKey': settings.SPOONACULAR_API_KEY,
+        'number': 1,
+    }
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        results = response.json().get('results', [])
+        if results:  # Якщо знайдено хоча б один рецепт
+            recipe_id = results[0].get('id')
+            if recipe_id:
+                # Отримання детальної інформації про рецепт
+                detail_url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
+                detail_response = requests.get(detail_url, params={'apiKey': settings.SPOONACULAR_API_KEY})
+
+                if detail_response.status_code == 200:
+                    detail_data = detail_response.json()
+
+                    # Отримуємо або створюємо користувача Spoonacular
+                    spoonacular_user, created = User.objects.get_or_create(
+                        username='spoonacular',
+                        defaults={'email': 'spoonacular@example.com'}
+                    )
+
+                    # Дані рецепта
+                    name = detail_data.get('title', 'No Title')
+                    ingredients = ', '.join(
+                        [i['original'] for i in detail_data.get('extendedIngredients', [])]
+                    ) if detail_data.get('extendedIngredients') else 'No ingredients'
+                    instructions = detail_data.get('instructions', 'No instructions available')
+                    category = detail_data.get('dishTypes', ['Uncategorized'])[0]
+                    image_url = detail_data.get('image', '')
+                    source_url = detail_data.get('sourceUrl', '')
+
+                    # Створення або отримання рецепта
+                    recipe, created = Recipe.objects.get_or_create(
+                        name=name,
+                        defaults={
+                            'ingredients': ingredients,
+                            'instructions': instructions,
+                            'category': category,
+                            'image_url': image_url,
+                            'author': spoonacular_user,
+                            'source_url': source_url,
+                        }
+                    )
+
+                    # Додавання до списку "Хочу приготувати"
+                    recipe.want_to_cook_by_users.add(request.user)
+                    messages.success(request, 'Recipe added to Want to Cook!')
+
+                    # Перенаправлення
+                    return redirect('recipe_detail', recipe.id)
+
+    # Якщо рецепт не знайдено
+    return render(request, 'main/error.html', {'message': 'Recipe not found.'})
+
+
+
+def remove_from_want_to_cook(request, recipe_id):
+    # Отримуємо рецепт за ID
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    # Видаляємо рецепт із улюблених користувача
+    recipe.want_to_cook_by_users.remove(request.user)
+
+    # Перенаправлення назад на сторінку профілю
+    return redirect('profile')

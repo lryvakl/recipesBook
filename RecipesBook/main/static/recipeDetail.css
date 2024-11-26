@@ -191,6 +191,7 @@ header .back-btn:hover, header .register-btn:hover {
 
 
 .favorite-btn {
+    margin-top: 15px;
     background-color: #ffb6c1; /* Основний колір */
     color: white; /* Текст білим */
     padding: 10px 20px; /* Відступи */
@@ -202,5 +203,24 @@ header .back-btn:hover, header .register-btn:hover {
 }
 
 .favorite-btn:hover {
+    background-color: #ff9ca1; /* Темніший колір при наведенні */
+}
+
+
+
+.want-btn {
+    width: 230px;
+    margin-top: 10px;
+    background-color: #ffb6c1; /* Основний колір */
+    color: white; /* Текст білим */
+    padding: 10px 20px; /* Відступи */
+    border: none; /* Без рамки */
+    border-radius: 8px; /* Округлені кути */
+    font-size: 16px; /* Розмір шрифту */
+    cursor: pointer; /* Зміна курсору */
+    transition: background-color 0.3s ease;
+}
+
+.want-btn:hover {
     background-color: #ff9ca1; /* Темніший колір при наведенні */
 }

@@ -63,18 +63,6 @@
                         <p>No instructions available.</p>
                     {% endif %}
                 </div>
-
-                <!-- Харчова цінність -->
-                <div class="nutrition">
-                    <h3>Nutrition Information:</h3>
-                    <ul>
-                        <li><strong>Calories:</strong> {{ recipe.calories }} kcal</li>
-                        <li><strong>Protein:</strong> {{ recipe.protein }} g</li>
-                        <li><strong>Fat:</strong> {{ recipe.fat }} g</li>
-                        <li><strong>Carbohydrates:</strong> {{ recipe.carbs }} g</li>
-                    </ul>
-                </div>
-
                 <!-- Кнопка додавання до улюблених -->
                 <div class="add-favorite">
                     <form method="POST"
@@ -89,6 +77,24 @@
                         </button>
                     </form>
                 </div>
+
+
+                <!-- Кнопка додавання до списку "Хочу приготувати" -->
+                        <div class="add-want">
+                            <form method="POST"
+                                  action="{% if recipe.id %}
+                                              {% url 'add_to_want_to_cook' recipe.id %}
+                                          {% else %}
+                                              {% url 'add_to_want_to_cook_spoonacular' recipe.name %}
+                                          {% endif %}">
+                                {% csrf_token %}
+                                <button type="submit" class="want-btn">
+                                    Add to Want to Cook <i class="fas fa-utensils"></i>
+                                </button>
+                            </form>
+                        </div>
+
+
 
                 <!-- Кнопка для посилання на оригінальний рецепт (для Spoonacular) -->
                 {% if recipe.source_url %}
