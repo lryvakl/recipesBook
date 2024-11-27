@@ -27,16 +27,21 @@
 
 
 
-       <form class="category-form" method="get" action="{% url 'recipes' %}">
-    <select name="category" id="category-select" onchange="this.form.submit()">
-        <option  value="">All Categories</option>
-        {% for category in categories %}
-            <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>
-                {{ category }}
-            </option>
-        {% endfor %}
-    </select>
+    <form class="category-form" method="get" action="{% url 'recipes' %}">
+    <div class="dropdown">
+        <button class="dropbtn">Select Category</button>
+        <div class="dropdown-content">
+            <a href="{% url 'recipes' %}">All Categories</a>
+            {% for category in categories %}
+                <a href="{% url 'recipes' %}?category={{ category }}">
+                    {{ category }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
 </form>
+
+
 
 
 

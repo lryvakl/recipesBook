@@ -24,6 +24,8 @@ from datetime import timedelta
 from collections import defaultdict
 from fractions import Fraction
 import random
+import random
+offset = random.randint(0, 50)  # Випадкове зміщення до 50
 
 
 
@@ -82,14 +84,17 @@ def recipes_view(request):
                 })
 
     # Отримання рандомних рецептів зі Spoonacular API для категорії
+    # Отримання рандомних рецептів зі Spoonacular API для категорії
     if category_filter:
         try:
             url = "https://api.spoonacular.com/recipes/complexSearch"
+            offset = random.randint(0, 50)  # Випадкове зміщення
             params = {
                 "apiKey": settings.SPOONACULAR_API_KEY,
-                "number": 1,
+                "number": 5,
                 "type": category_filter,
-                "addRecipeInformation": True,  # Отримуємо деталі рецепта
+                "addRecipeInformation": True,
+                "offset": offset,  # Зміщення для унікальних результатів
             }
             response = requests.get(url, params=params)
             if response.status_code == 200:
@@ -105,6 +110,7 @@ def recipes_view(request):
                     })
         except Exception as e:
             print(f"Error fetching detailed recipes from Spoonacular: {e}")
+
 
     # Сортування результатів
     if sort_by == 'name':
@@ -169,7 +175,6 @@ def recipe_detail_spoonacular(request, title):
     return render(request, 'main/recipe_detail.html', {'error': 'Recipe not found or unavailable.'})
 
 
-
 def login(request):
     return render(request, 'main/login.html')
 
@@ -178,9 +183,6 @@ def changePass(request):
     return render(request, 'main/changePass.html')
 
 
-
-from collections import defaultdict
-import re
 
 def normalize_ingredient_name(name):
     """
@@ -204,6 +206,7 @@ def normalize_ingredient_name(name):
     words.sort()
     return " ".join(words)
 
+
 def parse_quantity(quantity):
     """
     Приводить кількість до числового формату (працює з дробами).
@@ -216,6 +219,7 @@ def parse_quantity(quantity):
         return float(quantity)
     except ValueError:
         return 0  # Якщо кількість не вдалося розпізнати
+
 
 def profile(request):
     user = request.user
