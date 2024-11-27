@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+
     <!-- Хедер -->
     <header>
         <a href="{% url 'about-us' %}" class="back-btn">Recipes</a>
@@ -72,9 +73,7 @@
                                       {% url 'add_to_favorites_spoonacular' recipe.name %}
                                   {% endif %}">
                         {% csrf_token %}
-                        <button type="submit" class="favorite-btn">
-                            Add to Favorite Recipes  <i class="fas fa-heart"></i>
-                        </button>
+                        <button type="submit" class="favorite-btn" onclick="showAlert()">Add to Favorite Recipes <i class="fas fa-heart"></i></button>
                     </form>
                 </div>
 
@@ -88,7 +87,7 @@
                                               {% url 'add_to_want_to_cook_spoonacular' recipe.name %}
                                           {% endif %}">
                                 {% csrf_token %}
-                                <button type="submit" class="want-btn">
+                                <button type="submit" class="want-btn" onclick="showWantAlert()">
                                     Add to Want to Cook <i class="fas fa-utensils"></i>
                                 </button>
                             </form>
@@ -107,5 +106,24 @@
             </div>
         </div>
     </div>
+
+
+<script>
+    function showAlert() {
+        alert("Recipe successfully added to favorites!");
+        // Автоматично надсилаємо форму після відображення повідомлення
+        document.getElementById('favoriteForm').submit();
+    }
+    function showWantAlert() {
+        alert("Recipe successfully added to your 'Want to Cook' list!");
+
+        // Надсилаємо форму після відображення повідомлення
+        document.getElementById('wantToCookForm').submit();
+    }
+
+</script>
+
+
+
 </body>
 </html>

@@ -224,3 +224,36 @@ header .back-btn:hover, header .register-btn:hover {
 .want-btn:hover {
     background-color: #ff9ca1; /* Темніший колір при наведенні */
 }
+
+.messages {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 300px;
+    z-index: 1000;
+}
+
+.message {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.message.success {
+    background-color: #4CAF50;
+}
+
+.message.error {
+    background-color: #f44336;
+}
+
+.message.info {
+    background-color: #2196F3;
+}
+
+.message.warning {
+    background-color: #ff9800;
+}

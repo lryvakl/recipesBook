@@ -3,7 +3,6 @@ import csv
 import re
 from django.views.generic import CreateView
 from .models import Recipe
-
 from django.shortcuts import get_object_or_404
 from .services import get_recipe_by_name
 from django.contrib.auth.decorators import login_required
@@ -220,7 +219,7 @@ def parse_quantity(quantity):
     except ValueError:
         return 0  # Якщо кількість не вдалося розпізнати
 
-
+@login_required
 def profile(request):
     user = request.user
 
