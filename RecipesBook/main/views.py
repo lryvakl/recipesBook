@@ -22,7 +22,7 @@ from fuzzywuzzy import fuzz
 from operator import itemgetter
 from datetime import timedelta
 from collections import defaultdict
-
+from fractions import Fraction
 import random
 
 
@@ -178,47 +178,83 @@ def changePass(request):
     return render(request, 'main/changePass.html')
 
 
-def parse_ingredients(ingredients_text):
-    ingredients = ingredients_text.split(',')  # Розбиваємо текст на інгредієнти
-    parsed_ingredients = defaultdict(str)
 
-    for ingredient in ingredients:
-        parts = ingredient.strip().split(' ', 1)  # Розділяємо на кількість і сам інгредієнт
-        if len(parts) > 1:
-            quantity = parts[0]  # Кількість
-            ingredient_name = parts[1]  # Назва інгредієнта
-            parsed_ingredients[ingredient_name] += quantity  # Додаємо до списку інгредієнтів
-        else:
-            parsed_ingredients[parts[0]] = ''  # Якщо немає кількості, додаємо інгредієнт без кількості
+from collections import defaultdict
+import re
 
-    return parsed_ingredients
+def normalize_ingredient_name(name):
+    """
+    Нормалізує назву інгредієнта:
+    - Приводить до нижнього регістру
+    - Видаляє одиниці вимірювання
+    - Упорядковує слова для уніфікації
+    """
+    name = name.lower().strip()
 
+    # Видалення одиниць вимірювання
+    units = ["tablespoon", "cup", "teaspoon", "grams", "ounces", "kg", "ml", "l"]
+    for unit in units:
+        name = re.sub(rf'\b{unit}\b', '', name)
 
-@login_required
+    # Видалення небажаних символів
+    name = re.sub(r'[^\w\s]', '', name)
+
+    # Упорядковує слова для уніфікації
+    words = name.split()
+    words.sort()
+    return " ".join(words)
+
+def parse_quantity(quantity):
+    """
+    Приводить кількість до числового формату (працює з дробами).
+    """
+    try:
+        # Якщо кількість дробова (1/2)
+        if '/' in quantity:
+            numerator, denominator = map(float, quantity.split('/'))
+            return numerator / denominator
+        return float(quantity)
+    except ValueError:
+        return 0  # Якщо кількість не вдалося розпізнати
+
 def profile(request):
-
     user = request.user
+
     # Отримати рецепти, які створив користувач
     my_recipes = Recipe.objects.filter(author=user)
-    # Отримуємо всі улюблені рецепти поточного користувача
     favorite_recipes = request.user.favorite_recipes.all()  # related_name='favorite_recipes'
     want_to_cook_recipes = request.user.want_to_cook_recipes.all()
-    shopping_list = defaultdict(str)
 
+    shopping_list = defaultdict(float)  # Кількості будуть числовими
+
+    # Заповнення shopping_list
     for recipe in want_to_cook_recipes:
-        # Парсимо інгредієнти
-        ingredients = parse_ingredients(recipe.ingredients)
-        for ingredient, quantity in ingredients.items():  # Використовуємо .items() для доступу до інгредієнтів і їх кількості
-            shopping_list[ingredient] += f"{quantity} "
-    print(shopping_list)
+        ingredients = recipe.ingredients.split(', ')  # Розділяємо за комами
+        for ingredient in ingredients:
+            parts = ingredient.split(' ', 1)  # Розділяємо кількість і назву
+            if len(parts) == 2:
+                quantity, name = parts
+                normalized_name = normalize_ingredient_name(name)  # Нормалізація назви
+                shopping_list[normalized_name] += parse_quantity(quantity)  # Додаємо кількість
+            else:
+                normalized_name = normalize_ingredient_name(ingredient)
+                shopping_list[normalized_name] += 0  # Якщо кількість не вказана
+
+    # Форматування для відображення
+    formatted_shopping_list = {
+        name: f"{quantity:.2f}" for name, quantity in shopping_list.items()
+    }
+
     context = {
         'user': user,
         'my_recipes': my_recipes,
         'favorite_recipes': favorite_recipes,
         'want_to_cook_recipes': want_to_cook_recipes,
-        'shopping_list': shopping_list,
+        'shopping_list': formatted_shopping_list,
     }
     return render(request, 'main/profile.html', context)
+
+
 
 
 class RegisterView(CreateView):

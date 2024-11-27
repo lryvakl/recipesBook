@@ -27,6 +27,7 @@
         <button class="tab-button" data-tab="favorite-recipes">Favorite Recipes</button>
         <button class="tab-button" data-tab="my-recipes">My Recipes</button>
         <button class="tab-button" data-tab="want-to-cook">Want to Cook</button>
+        <button class="tab-button" data-tab="shopping-list">Shopping List</button>
 
         <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
@@ -214,24 +215,30 @@
     {% endif %}
 
 
-               <div id="shopping-list" class="tab-content">
+
+
+
+
+</div>
+
+    <div id="shopping-list" class="tab-content">
     <h3>Shopping List</h3>
     {% if shopping_list %}
         <div class="shopping-list-container">
             <ul>
                 {% for ingredient, quantity in shopping_list.items %}
-                    <li>{{ ingredient }}: {{ quantity }}</li>
+                    <li>
+                        <label class="shopping-item">
+                            <input type="checkbox" class="shopping-checkbox">
+                            <span>{{ ingredient }}: {{ quantity }}</span>
+                        </label>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
     {% else %}
         <p>You have no items in your shopping list.</p>
     {% endif %}
-</div>
-
-
-
-
 </div>
 
 
