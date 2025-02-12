@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="+unit tests on models.py">
-      <change afterPath="$PROJECT_DIR$/RecipesBook/main/tests/test_urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecipesBook/main/tests/test_views.py" afterDir="false" />
+    <list default="true" id="e21b0a3b-e75d-41d5-92b7-3959554ab465" name="Changes" comment="+unit tests on views.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipesBook/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipesBook/main/tests/test_urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/tests/test_urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecipesBook/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RecipesBook/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -141,7 +139,7 @@
       <workItem from="1735224462974" duration="122000" />
       <workItem from="1737059790269" duration="396000" />
       <workItem from="1737535372072" duration="15000" />
-      <workItem from="1739365033454" duration="5292000" />
+      <workItem from="1739365033454" duration="7358000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -415,7 +413,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739366593662</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="+unit tests on views.py">
+      <option name="closed" value="true" />
+      <created>1739371281408</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1739371281408</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -455,7 +461,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="виправлення візуальних недоліків" />
     <MESSAGE value="додана сторінка з повними рецептами(допрацювати кнопку add to favorites)" />
     <MESSAGE value="працює кнопка add to fav для власних рецептів, не працює для отриманих з api" />
     <MESSAGE value="logout" />
@@ -480,7 +485,8 @@
     <MESSAGE value="виправлено dropdown" />
     <MESSAGE value="+js alert" />
     <MESSAGE value="+unit tests on models.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="+unit tests on models.py" />
+    <MESSAGE value="+unit tests on views.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="+unit tests on views.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/recipesBook$.coverage" NAME=" Coverage Results" MODIFIED="1739370824070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RecipesBook" />

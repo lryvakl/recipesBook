@@ -27,6 +27,12 @@ offset = random.randint(0, 50)  # Випадкове зміщення до 50
 
 
 
+import random
+import requests
+from django.conf import settings
+from django.shortcuts import render
+from .models import Recipe
+
 def recipes_view(request):
     query = request.GET.get('q', '').strip()
     sort_by = request.GET.get('sort_by', '').strip()
@@ -81,8 +87,7 @@ def recipes_view(request):
                     'link': None,
                 })
 
-    # Отримання рандомних рецептів зі Spoonacular API для категорії
-    # Отримання рандомних рецептів зі Spoonacular API для категорії
+    # Завантаження додаткових рецептів зі Spoonacular для категорії
     if category_filter:
         try:
             url = "https://api.spoonacular.com/recipes/complexSearch"
@@ -108,7 +113,6 @@ def recipes_view(request):
                     })
         except Exception as e:
             print(f"Error fetching detailed recipes from Spoonacular: {e}")
-
 
     # Сортування результатів
     if sort_by == 'name':
