@@ -23,7 +23,6 @@ from datetime import timedelta
 from collections import defaultdict
 from fractions import Fraction
 import random
-import random
 offset = random.randint(0, 50)  # Випадкове зміщення до 50
 
 
