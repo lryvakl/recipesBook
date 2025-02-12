@@ -21,6 +21,7 @@ class Recipe(models.Model):
             return self.image.url
         elif self.image_url:  # Якщо є зовнішній URL
             return self.image_url
+        return None
         # Якщо нічого немає, повертаємо шлях до зображення за замовчуванням
 
 

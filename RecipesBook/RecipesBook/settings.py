@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SPOONACULAR_API_KEY = '1858371a47ff4daa8ba9021590d0764b'
+SPOONACULAR_API_KEY = '3e38ac83554c4a4491840a1cc564c676'
 SECRET_KEY = 'django-insecure-9zvjyya$4tqjm5aecp8+!o&+d=4d8ib$m*#yt=lhk@6k3twsxa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -141,7 +141,10 @@ LOGOUT_REDIRECT_URL = '/profile'
 
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR /'static']
+STATICFILES_DIRS = [
+    '/Users/arturrubachenko/PycharmProjects/recipesBook/RecipesBook/main/static',
+]
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
