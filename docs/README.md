@@ -6,9 +6,22 @@
 Реалізовано діаграми:
 
 Use Case - загальний сценарій можливостей використання системи.
+
 Class Diagram - структура моделей у коді.
-Activity Diagram -  логіка взаємодії з системою
-Sequence Diagram, Deployment Diagram, Object Diagram, State Diagram, Component Diagram.
+
+Activity Diagram -  логіка взаємодії з системою(створення рецепту, додавання до улюблених/хочу приготувати та пошуку рецептів)
+
+Sequence Diagram - детально описує, як виконуються операції та взаємодії.
+
+Deployment Diagram - схема розгортання.
+
+Object Diagram - приклад взаємодії об’єктів.
+
+State Diagram - стани об’єкта Recipe.
+
+Component Diagram - архітектура системи на рівні компонентів та їхніх зв’язків.
+
+
 Рефакторинг коду: винесено логіку роботи з API у модуль services.py. Покращено object-oriented design. 
 Згенеровано документацію з використанням Doxygen(документування всіх класів та методів.) Налаштовано GitHub Pages для перегляду документації
 
