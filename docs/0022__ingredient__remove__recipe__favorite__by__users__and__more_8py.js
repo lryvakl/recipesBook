@@ -1,0 +1,4 @@
+var 0022__ingredient__remove__recipe__favorite__by__users__and__more_8py =
+[
+    [ "RecipesBook.main.migrations.0022_ingredient_remove_recipe_favorite_by_users_and_more.Migration", "class_recipes_book_1_1main_1_1migrations_1_10022__ingredient__remove__recipe__favorite__by__users__and__more_1_1_migration.html", null ]
+];

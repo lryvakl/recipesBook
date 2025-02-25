@@ -1,0 +1,4 @@
+var 0019__category__ingredient__alter__recipe__image__url__and__more_8py =
+[
+    [ "RecipesBook.main.migrations.0019_category_ingredient_alter_recipe_image_url_and_more.Migration", "class_recipes_book_1_1main_1_1migrations_1_10019__category__ingredient__alter__recipe__image__url__and__more_1_1_migration.html", null ]
+];

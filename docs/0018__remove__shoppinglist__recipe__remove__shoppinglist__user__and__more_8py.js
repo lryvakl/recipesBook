@@ -1,0 +1,4 @@
+var 0018__remove__shoppinglist__recipe__remove__shoppinglist__user__and__more_8py =
+[
+    [ "RecipesBook.main.migrations.0018_remove_shoppinglist_recipe_remove_shoppinglist_user_and_more.Migration", "class_recipes_book_1_1main_1_1migrations_1_10018__remove__shoppinglist__recipe__remove__shopping2b8c0fc3b6364892e4ab2eaddd7dc503.html", null ]
+];

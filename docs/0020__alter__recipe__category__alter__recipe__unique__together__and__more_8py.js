@@ -1,0 +1,4 @@
+var 0020__alter__recipe__category__alter__recipe__unique__together__and__more_8py =
+[
+    [ "RecipesBook.main.migrations.0020_alter_recipe_category_alter_recipe_unique_together_and_more.Migration", "class_recipes_book_1_1main_1_1migrations_1_10020__alter__recipe__category__alter__recipe__uniqueca23f922001fa06c1790ac79f74720bd.html", null ]
+];
