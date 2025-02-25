@@ -1,0 +1,27 @@
+var dir_bc3b0e002dd074e54109a5bc2af77ec4 =
+[
+    [ "0001_initial.py", "0001__initial_8py.html", "0001__initial_8py" ],
+    [ "0002_recipe_image.py", "0002__recipe__image_8py.html", "0002__recipe__image_8py" ],
+    [ "0003_alter_recipe_image.py", "0003__alter__recipe__image_8py.html", "0003__alter__recipe__image_8py" ],
+    [ "0004_alter_recipe_image.py", "0004__alter__recipe__image_8py.html", "0004__alter__recipe__image_8py" ],
+    [ "0005_alter_recipe_image.py", "0005__alter__recipe__image_8py.html", "0005__alter__recipe__image_8py" ],
+    [ "0006_recipe_slug.py", "0006__recipe__slug_8py.html", "0006__recipe__slug_8py" ],
+    [ "0007_alter_recipe_slug.py", "0007__alter__recipe__slug_8py.html", "0007__alter__recipe__slug_8py" ],
+    [ "0008_remove_recipe_slug.py", "0008__remove__recipe__slug_8py.html", "0008__remove__recipe__slug_8py" ],
+    [ "0009_recipe_favorite_by_users.py", "0009__recipe__favorite__by__users_8py.html", "0009__recipe__favorite__by__users_8py" ],
+    [ "0010_alter_recipe_image.py", "0010__alter__recipe__image_8py.html", "0010__alter__recipe__image_8py" ],
+    [ "0011_recipe_image_url.py", "0011__recipe__image__url_8py.html", "0011__recipe__image__url_8py" ],
+    [ "0012_remove_recipe_image_url.py", "0012__remove__recipe__image__url_8py.html", "0012__remove__recipe__image__url_8py" ],
+    [ "0013_recipe_author_recipe_created_at.py", "0013__recipe__author__recipe__created__at_8py.html", "0013__recipe__author__recipe__created__at_8py" ],
+    [ "0014_recipe_image_url.py", "0014__recipe__image__url_8py.html", "0014__recipe__image__url_8py" ],
+    [ "0015_recipe_sourse_url.py", "0015__recipe__sourse__url_8py.html", "0015__recipe__sourse__url_8py" ],
+    [ "0016_rename_sourse_url_recipe_source_url.py", "0016__rename__sourse__url__recipe__source__url_8py.html", "0016__rename__sourse__url__recipe__source__url_8py" ],
+    [ "0017_mealplan_shoppinglist.py", "0017__mealplan__shoppinglist_8py.html", "0017__mealplan__shoppinglist_8py" ],
+    [ "0018_remove_shoppinglist_recipe_remove_shoppinglist_user_and_more.py", "0018__remove__shoppinglist__recipe__remove__shoppinglist__user__and__more_8py.html", "0018__remove__shoppinglist__recipe__remove__shoppinglist__user__and__more_8py" ],
+    [ "0019_category_ingredient_alter_recipe_image_url_and_more.py", "0019__category__ingredient__alter__recipe__image__url__and__more_8py.html", "0019__category__ingredient__alter__recipe__image__url__and__more_8py" ],
+    [ "0020_alter_recipe_category_alter_recipe_unique_together_and_more.py", "0020__alter__recipe__category__alter__recipe__unique__together__and__more_8py.html", "0020__alter__recipe__category__alter__recipe__unique__together__and__more_8py" ],
+    [ "0021_recentseen.py", "0021__recentseen_8py.html", "0021__recentseen_8py" ],
+    [ "0022_ingredient_remove_recipe_favorite_by_users_and_more.py", "0022__ingredient__remove__recipe__favorite__by__users__and__more_8py.html", "0022__ingredient__remove__recipe__favorite__by__users__and__more_8py" ],
+    [ "0023_remove_recipe_ingredients_and_more.py", "0023__remove__recipe__ingredients__and__more_8py.html", "0023__remove__recipe__ingredients__and__more_8py" ],
+    [ "__init__.py", "migrations_2____init_____8py.html", null ]
+];
